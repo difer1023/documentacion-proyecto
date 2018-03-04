@@ -1,4 +1,3 @@
---  Drop Tables, Stored Procedures and Views 
 
 DROP TABLE IF EXISTS apoyo_prog_f CASCADE
 ;
@@ -211,14 +210,14 @@ DROP TABLE IF EXISTS via_obtencion CASCADE
 
 --  Create Tables 
 CREATE TABLE apoyo_prog_f ( 
-	k_codigo integer NOT NULL,
+	k_codigo serial NOT NULL,
 	n_nombre varchar(300) NOT NULL,
 	n_institucion varchar(50) NOT NULL,
 	n_facultad varchar(50) NOT NULL,
 	n_departamento varchar(50) NOT NULL,
 	n_id_acto_admin varchar(50) NOT NULL,
 	n_num_acto_admin varchar(50) NOT NULL,
-	i_fecha timestamp NOT NULL,
+	f_fecha date NOT NULL,
 	i_tipo_apoyo integer,
 	c_categoria varchar(10),
 	b_clasificado boolean
@@ -233,7 +232,7 @@ CREATE TABLE apoyo_prog_f_autor (
 ;
 
 CREATE TABLE area_conocimiento ( 
-	k_codigo integer NOT NULL,
+	k_codigo serial NOT NULL,
 	n_nombre varchar(200) NOT NULL,
 	c_descripcion varchar(300)
 )
@@ -246,7 +245,7 @@ CREATE TABLE area_conocimiento_categoria (
 ;
 
 CREATE TABLE articulo ( 
-	k_codigo integer NOT NULL,
+	k_codigo serial NOT NULL,
 	n_titulo varchar(200) NOT NULL,
 	i_ano integer NOT NULL,
 	i_mes integer,
@@ -270,16 +269,16 @@ CREATE TABLE articulo_autor (
 ;
 
 CREATE TABLE BCI ( 
-	k_codigo integer NOT NULL,
+	k_codigo serial NOT NULL,
 	c_ISBN varchar(19) NOT NULL,
 	n_titulo varchar(300) NOT NULL
 )
 ;
 
 CREATE TABLE boletin ( 
-	k_codigo integer NOT NULL,
+	k_codigo serial NOT NULL,
 	n_titulo varchar(300) NOT NULL,
-	i_fecha_elaboracion timestamp NOT NULL,
+	f_fecha_elaboracion date NOT NULL,
 	i_editor integer NOT NULL,
 	n_institucion varchar(300) NOT NULL,
 	c_categoria varchar(10),
@@ -302,7 +301,7 @@ CREATE TABLE cap_libro_autor (
 ;
 
 CREATE TABLE cap_libro_investigacion ( 
-	k_codigo integer NOT NULL,
+	k_codigo serial NOT NULL,
 	c_ISBN_libro varchar(19) NOT NULL,
 	n_titulo_cap varchar(300) NOT NULL,
 	f_fecha_publicacion timestamp NOT NULL,
@@ -327,19 +326,19 @@ CREATE TABLE categoria_investigador (
 ;
 
 CREATE TABLE categoriaJCR ( 
-	k_codigo integer NOT NULL,
+	k_codigo serial NOT NULL,
 	n_nombre varchar(200) NOT NULL
 )
 ;
 
 CREATE TABLE categoriaSJR ( 
-	k_codigo integer NOT NULL,
+	k_codigo serial NOT NULL,
 	n_nombre varchar(200) NOT NULL
 )
 ;
 
 CREATE TABLE citacion ( 
-	k_codigo integer NOT NULL,
+	k_codigo serial NOT NULL,
 	c_ISSN varchar(15),
 	c_ISBN varchar(19),
 	i_libro_investigacion integer
@@ -363,10 +362,10 @@ CREATE TABLE clasificacion_SJR (
 ;
 
 CREATE TABLE consultoria ( 
-	k_codigo integer NOT NULL,
+	k_codigo serial NOT NULL,
 	n_titulo varchar(300) NOT NULL,
 	n_numero_contrato varchar(50) NOT NULL,
-	i_fecha timestamp NOT NULL,
+	f_fecha date NOT NULL,
 	b_certificacion_empresa boolean NOT NULL,
 	c_categoria varchar(10),
 	b_clasificado boolean
@@ -381,13 +380,13 @@ CREATE TABLE consultoria_autor (
 ;
 
 CREATE TABLE departamento ( 
-	k_codigo integer NOT NULL,
+	k_codigo serial NOT NULL,
 	n_nombre varchar(50) NOT NULL
 )
 ;
 
 CREATE TABLE diseno_industrial ( 
-	k_codigo integer NOT NULL,
+	k_codigo serial NOT NULL,
 	c_numero_reg varchar(50) NOT NULL,
 	n_titulo_reg varchar(300) NOT NULL,
 	i_ano_obtencion integer NOT NULL,
@@ -407,13 +406,13 @@ CREATE TABLE diseno_industrial_titular (
 ;
 
 CREATE TABLE distincion_trabajo_grado ( 
-	k_codigo integer NOT NULL,
+	k_codigo serial NOT NULL,
 	n_nombre varchar(100) NOT NULL
 )
 ;
 
 CREATE TABLE doc_trabajo ( 
-	k_codigo integer NOT NULL,
+	k_codigo serial NOT NULL,
 	n_titulo varchar(300) NOT NULL,
 	i_ano integer NOT NULL,
 	n_pag_web varchar(300),
@@ -437,12 +436,12 @@ CREATE TABLE doc_trabajo_entidad (
 ;
 
 CREATE TABLE edicion ( 
-	k_codigo integer NOT NULL,
+	k_codigo serial NOT NULL,
 	n_titulo varchar(300) NOT NULL,
 	n_isbn varchar(50) NOT NULL,
 	n_issn varchar(50),
 	i_editor integer NOT NULL,
-	f_fecha_editor timestamp NOT NULL,
+	f_fecha_editor date NOT NULL,
 	i_ano integer NOT NULL,
 	n_pag_web varchar(300),
 	c_categoria varchar(10),
@@ -452,13 +451,13 @@ CREATE TABLE edicion (
 ;
 
 CREATE TABLE editorial ( 
-	k_codigo integer NOT NULL,
+	k_codigo serial NOT NULL,
 	n_nombre varchar(300) NOT NULL
 )
 ;
 
 CREATE TABLE emp_base_tec ( 
-	k_codigo integer NOT NULL,
+	k_codigo serial NOT NULL,
 	n_nombre varchar(300) NOT NULL,
 	b_certificado_camara boolean NOT NULL,
 	n_num_tributario varchar(15) NOT NULL,
@@ -478,16 +477,16 @@ CREATE TABLE emp_base_tec_autor (
 ;
 
 CREATE TABLE entidad ( 
-	k_codigo integer NOT NULL,
+	k_codigo serial NOT NULL,
 	n_nombre varchar(200) NOT NULL,
 	b_institucion boolean NOT NULL
 )
 ;
 
 CREATE TABLE espacio_part_proyecto_CTI ( 
-	k_codigo integer NOT NULL,
-	n_nombre_expacio varchar(300) NOT NULL,
-	i_fecha_inicio integer NOT NULL,
+	k_codigo serial NOT NULL,
+	n_nombre_espacio varchar(300) NOT NULL,
+	f_fecha_inicio date NOT NULL,
 	n_nombre_comunidad varchar(300),
 	n_constancia_participacion boolean,
 	c_categoria varchar(10),
@@ -510,7 +509,7 @@ CREATE TABLE espacio_part_proyecto_CTI_entidad (
 ;
 
 CREATE TABLE esq_circuito ( 
-	k_codigo integer NOT NULL,
+	k_codigo serial NOT NULL,
 	c_num_registro varchar(50) NOT NULL,
 	n_titulo_registro varchar(300) NOT NULL,
 	i_ano_obtencion integer NOT NULL,
@@ -529,9 +528,9 @@ CREATE TABLE esq_circuito_titular (
 ;
 
 CREATE TABLE est_comunicacion_conocimiento ( 
-	k_codigo integer NOT NULL,
+	k_codigo serial NOT NULL,
 	n_nombre varchar(300) NOT NULL,
-	i_fecha_inicio timestamp NOT NULL,
+	f_fecha_inicio date NOT NULL,
 	i_lider integer NOT NULL,
 	n_nombre_comunidad varchar(300) NOT NULL,
 	b_certificacion boolean,
@@ -554,9 +553,9 @@ CREATE TABLE est_comunicacion_conocimiento_investigador (
 ;
 
 CREATE TABLE est_fomento_CTI ( 
-	k_codigo integer NOT NULL,
+	k_codigo serial NOT NULL,
 	n_nombre varchar(300) NOT NULL,
-	i_fecha_inicio timestamp NOT NULL,
+	f_fecha_inicio date NOT NULL,
 	i_investigador_principal integer NOT NULL,
 	b_certificado boolean,
 	c_categoria varchar(10),
@@ -572,10 +571,10 @@ CREATE TABLE est_fomento_CTI_entidad (
 ;
 
 CREATE TABLE evento_cientifico ( 
-	k_codigo integer NOT NULL,
+	k_codigo serial NOT NULL,
 	n_nombre varchar(300) NOT NULL,
-	i_fecha_inicio timestamp NOT NULL,
-	i_fecha_fin timestamp NOT NULL,
+	f_fecha_inicio date NOT NULL,
+	f_fecha_fin date NOT NULL,
 	n_entidad_patrocinadora varchar(30),
 	i_tipo_participacion integer
 )
@@ -599,16 +598,16 @@ CREATE TABLE evento_cientifico_investigador (
 ;
 
 CREATE TABLE financiacion_proyecto ( 
-	k_codigo integer NOT NULL,
+	k_codigo serial NOT NULL,
 	n_nombre varchar(50) NOT NULL,
 	n_descripcion varchar(100)
 )
 ;
 
 CREATE TABLE gen_cont_impreso ( 
-	k_codigo integer NOT NULL,
+	k_codigo serial NOT NULL,
 	n_titulo varchar(200) NOT NULL,
-	f_fecha_publicacion timestamp NOT NULL,
+	f_fecha_publicacion date NOT NULL,
 	n_medio_circulacion varchar(50) NOT NULL,
 	n_ambito varchar(50) NOT NULL,
 	i_lugar_publicacion integer NOT NULL,
@@ -619,12 +618,12 @@ CREATE TABLE gen_cont_impreso (
 ;
 
 CREATE TABLE gen_cont_multimedia ( 
-	k_codigo integer NOT NULL,
+	k_codigo serial NOT NULL,
 	n_titulo varchar(200) NOT NULL,
 	n_ambito varchar(50) NOT NULL,
 	n_comunidades varchar(300) NOT NULL,
 	n_resumen varchar(300) NOT NULL,
-	f_fecha timestamp NOT NULL,
+	f_fecha date NOT NULL,
 	n_medio_circulacion varchar(50) NOT NULL,
 	b_certificacion boolean,
 	c_categoria varchar(10),
@@ -647,17 +646,17 @@ CREATE TABLE gen_cont_multimedia_participante (
 ;
 
 CREATE TABLE gen_cont_participacion ( 
-	k_codigo integer NOT NULL,
+	k_codigo serial NOT NULL,
 	n_nombre varchar(50)
 )
 ;
 
 CREATE TABLE gen_cont_virtual ( 
-	k_codigo integer NOT NULL,
+	k_codigo serial NOT NULL,
 	n_titulo varchar(200) NOT NULL,
 	n_comunidad varchar(300) NOT NULL,
 	n_resumen varchar(300) NOT NULL,
-	i_fecha timestamp NOT NULL,
+	f_fecha date NOT NULL,
 	n_medio_circulacion varchar(50) NOT NULL,
 	n_pag_web varchar(300),
 	b_certificacion boolean,
@@ -687,16 +686,16 @@ CREATE TABLE gen_contenido_autor (
 ;
 
 CREATE TABLE grupo_investigacion ( 
-	k_codigo integer NOT NULL,
+	k_codigo serial NOT NULL,
 	n_nombre varchar(200)
 )
 ;
 
 CREATE TABLE informe_final ( 
-	k_codigo integer NOT NULL,
+	k_codigo serial NOT NULL,
 	n_titulo varchar(300) NOT NULL,
 	n_nombre_proyecto varchar(300) NOT NULL,
-	i_fecha_elaboracion timestamp NOT NULL,
+	f_fecha_elaboracion date NOT NULL,
 	c_categoria varchar(10),
 	b_clasificado boolean
 )
@@ -710,10 +709,10 @@ CREATE TABLE informe_final_autor (
 ;
 
 CREATE TABLE informe_tec ( 
-	k_codigo integer NOT NULL,
+	k_codigo serial NOT NULL,
 	n_titulo varchar(300) NOT NULL,
 	n_titulo_inv varchar(300) NOT NULL,
-	i_fecha timestamp NOT NULL,
+	f_fecha date NOT NULL,
 	n_certificacion_entidad boolean NOT NULL,
 	c_categoria varchar(10),
 	b_clasificado boolean
@@ -728,9 +727,9 @@ CREATE TABLE informe_tec_autor (
 ;
 
 CREATE TABLE innovacion_ps ( 
-	k_codigo integer NOT NULL,
+	k_codigo serial NOT NULL,
 	n_nombre varchar(300) NOT NULL,
-	i_fecha timestamp NOT NULL,
+	f_fecha date NOT NULL,
 	n_nombre_empresa varchar(300) NOT NULL,
 	n_nit varchar(50) NOT NULL,
 	b_certificado_imp_peq boolean NOT NULL,
@@ -756,7 +755,7 @@ CREATE TABLE integrante_grupo (
 ;
 
 CREATE TABLE investigador ( 
-	k_codigo integer NOT NULL,
+	k_codigo serial NOT NULL,
 	n_nombre varchar(200) NOT NULL,
 	c_categoria varchar(4)
 )
@@ -778,9 +777,9 @@ CREATE TABLE libro_autor (
 ;
 
 CREATE TABLE libro_investigacion ( 
-	k_codigo integer NOT NULL,
+	k_codigo serial NOT NULL,
 	c_ISBN_libro varchar(10) NOT NULL,
-	f_fecha_publicacion timestamp NOT NULL,
+	f_fecha_publicacion date NOT NULL,
 	b_validacion_inv_an5 boolean,
 	c_categoria varchar(10),
 	b_clasificado boolean,
@@ -789,22 +788,22 @@ CREATE TABLE libro_investigacion (
 ;
 
 CREATE TABLE municipio ( 
-	k_codigo integer NOT NULL,
+	k_codigo serial NOT NULL,
 	n_nombre varchar(50) NOT NULL,
 	i_departamento integer NOT NULL
 )
 ;
 
 CREATE TABLE pais ( 
-	k_codigo integer NOT NULL,
+	k_codigo serial NOT NULL,
 	n_nombre varchar(50) NOT NULL
 )
 ;
 
 CREATE TABLE part_ciud_proyecto_CTI ( 
-	k_codigo integer NOT NULL,
+	k_codigo serial NOT NULL,
 	n_titulo varchar(300) NOT NULL,
-	i_fecha_inicio timestamp NOT NULL,
+	f_fecha_inicio date NOT NULL,
 	n_nombre_comunidad varchar(300) NOT NULL,
 	i_investigador_principal integer NOT NULL,
 	n_constancia_participacion boolean,
@@ -821,7 +820,7 @@ CREATE TABLE part_proy_CTI_entidad (
 ;
 
 CREATE TABLE patente ( 
-	k_codigo integer NOT NULL,
+	k_codigo serial NOT NULL,
 	n_numero_patente varchar(50) NOT NULL,
 	b_certificado_patente boolean NOT NULL,
 	i_ano_obtencion integer NOT NULL,
@@ -835,7 +834,7 @@ CREATE TABLE patente (
 ;
 
 CREATE TABLE patente_contrato ( 
-	k_codigo integer NOT NULL,
+	k_codigo serial NOT NULL,
 	c_numero_contrato varchar(20) NOT NULL,
 	c_NIT_empresa varchar(20) NOT NULL,
 	n_nombre_empresa varchar(50) NOT NULL,
@@ -858,9 +857,9 @@ CREATE TABLE patente_titular (
 ;
 
 CREATE TABLE planta_piloto ( 
-	k_codigo integer NOT NULL,
+	k_codigo serial NOT NULL,
 	n_nombre varchar(300) NOT NULL,
-	i_fecha timestamp NOT NULL,
+	f_fecha date NOT NULL,
 	i_institucion_financiadora integer NOT NULL,
 	b_copia_contrato boolean,
 	i_pais_elaboracion integer NOT NULL,
@@ -877,7 +876,7 @@ CREATE TABLE planta_piloto_autor (
 ;
 
 CREATE TABLE programa_ondas ( 
-	k_codigo integer NOT NULL,
+	k_codigo serial NOT NULL,
 	n_nombre varchar(150) NOT NULL,
 	b_registro_BD boolean NOT NULL,
 	n_institucion varchar(200) NOT NULL,
@@ -899,9 +898,9 @@ CREATE TABLE programa_ondas_autor (
 ;
 
 CREATE TABLE prototipo_ind ( 
-	k_codigo integer NOT NULL,
+	k_codigo serial NOT NULL,
 	n_nombre varchar(300) NOT NULL,
-	i_fecha timestamp NOT NULL,
+	f_fecha date NOT NULL,
 	i_institucion_financiadora integer NOT NULL,
 	i_pais_obtencion integer NOT NULL,
 	c_categoria varchar(10),
@@ -917,7 +916,7 @@ CREATE TABLE prototipo_ind_autor (
 ;
 
 CREATE TABLE proyecto ( 
-	k_codigo integer NOT NULL,
+	k_codigo serial NOT NULL,
 	n_titulo varchar(300) NOT NULL,
 	n_intitucion varchar(300) NOT NULL,
 	n_entidad_financiadora varchar(300) NOT NULL,
@@ -932,10 +931,10 @@ CREATE TABLE proyecto (
 ;
 
 CREATE TABLE proyecto_ext_CTI ( 
-	k_codigo integer NOT NULL,
+	k_codigo serial NOT NULL,
 	n_nombre varchar(300) NOT NULL,
-	i_fecha_inicio timestamp NOT NULL,
-	i_fecha_fin timestamp,
+	f_fecha_inicio date NOT NULL,
+	f_fecha_fin date,
 	n_nombre_comunidad varchar(300) NOT NULL,
 	n_resumen_ctel varchar(300) NOT NULL,
 	c_categoria varchar(10),
@@ -966,10 +965,10 @@ CREATE TABLE proyecto_investigador (
 ;
 
 CREATE TABLE red_conocimiento ( 
-	k_codigo integer NOT NULL,
+	k_codigo serial NOT NULL,
 	n_nombre varchar(300) NOT NULL,
 	i_pais integer NOT NULL,
-	i_fecha_inicio timestamp NOT NULL,
+	f_fecha_inicio date NOT NULL,
 	i_investigador_principal integer NOT NULL,
 	n_nombre_comunidad varchar(300) NOT NULL,
 	n_pag_web varchar(300),
@@ -993,7 +992,7 @@ CREATE TABLE revista (
 ;
 
 CREATE TABLE secreto_emp ( 
-	k_codigo integer NOT NULL,
+	k_codigo serial NOT NULL,
 	n_nombre varchar(300) NOT NULL,
 	i_valor_contrato integer NOT NULL,
 	b_certificacion boolean NOT NULL,
@@ -1011,7 +1010,7 @@ CREATE TABLE secreto_emp_autor (
 ;
 
 CREATE TABLE signos_dis ( 
-	k_codigo integer NOT NULL,
+	k_codigo serial NOT NULL,
 	c_numero_reg varchar(50) NOT NULL,
 	n_titulo varchar(300) NOT NULL,
 	i_ano integer NOT NULL,
@@ -1032,7 +1031,7 @@ CREATE TABLE signos_dis_titular (
 ;
 
 CREATE TABLE software ( 
-	k_codigo integer NOT NULL,
+	k_codigo serial NOT NULL,
 	n_titulo varchar(300) NOT NULL,
 	c_num_reg_derechos_autor varchar(50) NOT NULL,
 	i_ano integer NOT NULL,
@@ -1052,43 +1051,43 @@ CREATE TABLE software_autor (
 ;
 
 CREATE TABLE tipo_apoyo ( 
-	k_codigo integer NOT NULL,
+	k_codigo serial NOT NULL,
 	n_nombre varchar(100) NOT NULL
 )
 ;
 
 CREATE TABLE tipo_empresa ( 
-	k_codigo integer NOT NULL,
+	k_codigo serial NOT NULL,
 	n_nombre varchar(50) NOT NULL
 )
 ;
 
 CREATE TABLE tipo_identificacion_empresa ( 
-	k_codigo integer NOT NULL,
+	k_codigo serial NOT NULL,
 	n_nombre varchar(50) NOT NULL
 )
 ;
 
 CREATE TABLE tipo_participacion_evento ( 
-	k_codigo integer NOT NULL,
+	k_codigo serial NOT NULL,
 	n_nombre varchar(50) NOT NULL
 )
 ;
 
 CREATE TABLE tipo_proyecto ( 
-	k_codigo integer NOT NULL,
+	k_codigo serial NOT NULL,
 	n_nombre varchar(50) NOT NULL
 )
 ;
 
 CREATE TABLE tipo_trabajo ( 
-	k_codigo integer NOT NULL,
+	k_codigo serial NOT NULL,
 	n_nombre varchar(50) NOT NULL
 )
 ;
 
 CREATE TABLE trabajo_grado ( 
-	k_codigo integer NOT NULL,
+	k_codigo serial NOT NULL,
 	n_titulo varchar(300) NOT NULL,
 	n_autor varchar(300) NOT NULL,
 	n_institucion varchar(300) NOT NULL,
@@ -1110,7 +1109,7 @@ CREATE TABLE trabajo_grado_director (
 ;
 
 CREATE TABLE via_obtencion ( 
-	k_codigo integer NOT NULL,
+	k_codigo serial NOT NULL,
 	n_nombre varchar(30) NOT NULL
 )
 ;
