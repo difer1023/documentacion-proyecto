@@ -1,0 +1,2304 @@
+USE ic2
+;
+
+SET FOREIGN_KEY_CHECKS=0;
+
+
+--  Drop Tables, Stored Procedures and Views 
+
+DROP TABLE IF EXISTS apoyo_prog_f
+;
+DROP TABLE IF EXISTS apoyo_prog_f_autor
+;
+DROP TABLE IF EXISTS area_conocimiento
+;
+DROP TABLE IF EXISTS articulo
+;
+DROP TABLE IF EXISTS articulo_autor
+;
+DROP TABLE IF EXISTS BCI
+;
+DROP TABLE IF EXISTS boletin
+;
+DROP TABLE IF EXISTS boletin_autor
+;
+DROP TABLE IF EXISTS cap_libro_autor
+;
+DROP TABLE IF EXISTS cap_libro_investigacion
+;
+DROP TABLE IF EXISTS categoria
+;
+DROP TABLE IF EXISTS categoria_investigador
+;
+DROP TABLE IF EXISTS categoriaJCR
+;
+DROP TABLE IF EXISTS categoriaSJR
+;
+DROP TABLE IF EXISTS citacion
+;
+DROP TABLE IF EXISTS clasificacion_JCR
+;
+DROP TABLE IF EXISTS clasificacion_SJR
+;
+DROP TABLE IF EXISTS consultoria
+;
+DROP TABLE IF EXISTS consultoria_autor
+;
+DROP TABLE IF EXISTS departamento
+;
+DROP TABLE IF EXISTS diseno_industrial
+;
+DROP TABLE IF EXISTS diseno_industrial_titular
+;
+DROP TABLE IF EXISTS distincion_trabajo_grado
+;
+DROP TABLE IF EXISTS doc_trabajo
+;
+DROP TABLE IF EXISTS doc_trabajo_autor
+;
+DROP TABLE IF EXISTS doc_trabajo_entidad
+;
+DROP TABLE IF EXISTS edicion
+;
+DROP TABLE IF EXISTS editorial
+;
+DROP TABLE IF EXISTS emp_base_tec
+;
+DROP TABLE IF EXISTS emp_base_tec_autor
+;
+DROP TABLE IF EXISTS entidad
+;
+DROP TABLE IF EXISTS espacio_part_proyecto_CTI
+;
+DROP TABLE IF EXISTS espacio_part_proyecto_CTI_autor
+;
+DROP TABLE IF EXISTS espacio_part_proyecto_CTI_entidad
+;
+DROP TABLE IF EXISTS esq_circuito
+;
+DROP TABLE IF EXISTS esq_circuito_titular
+;
+DROP TABLE IF EXISTS est_comunicacion_conocimiento
+;
+DROP TABLE IF EXISTS est_comunicacion_conocimiento_entidad
+;
+DROP TABLE IF EXISTS est_comunicacion_conocimiento_investigador
+;
+DROP TABLE IF EXISTS est_fomento_CTI
+;
+DROP TABLE IF EXISTS est_fomento_CTI_entidad
+;
+DROP TABLE IF EXISTS evento_cientifico
+;
+DROP TABLE IF EXISTS evento_cientifico_entidad
+;
+DROP TABLE IF EXISTS evento_cientifico_investigador
+;
+DROP TABLE IF EXISTS financiacion_proyecto
+;
+DROP TABLE IF EXISTS gen_cont_impreso
+;
+DROP TABLE IF EXISTS gen_cont_multimedia
+;
+DROP TABLE IF EXISTS gen_cont_multimedia_entidad
+;
+DROP TABLE IF EXISTS gen_cont_multimedia_participante
+;
+DROP TABLE IF EXISTS gen_cont_participacion
+;
+DROP TABLE IF EXISTS gen_cont_virtual
+;
+DROP TABLE IF EXISTS gen_cont_virtual_autor
+;
+DROP TABLE IF EXISTS gen_cont_virtual_entidad
+;
+DROP TABLE IF EXISTS gen_contenido_autor
+;
+DROP TABLE IF EXISTS grupo_investigacion
+;
+DROP TABLE IF EXISTS informe_final
+;
+DROP TABLE IF EXISTS informe_final_autor
+;
+DROP TABLE IF EXISTS informe_tec
+;
+DROP TABLE IF EXISTS informe_tec_autor
+;
+DROP TABLE IF EXISTS innovacion_ps
+;
+DROP TABLE IF EXISTS innovacion_ps_autor
+;
+DROP TABLE IF EXISTS integrante_grupo
+;
+DROP TABLE IF EXISTS investigador
+;
+DROP TABLE IF EXISTS libro
+;
+DROP TABLE IF EXISTS libro_autor
+;
+DROP TABLE IF EXISTS libro_investigacion
+;
+DROP TABLE IF EXISTS municipio
+;
+DROP TABLE IF EXISTS pais
+;
+DROP TABLE IF EXISTS part_ciud_proyecto_CTI
+;
+DROP TABLE IF EXISTS part_proy_CTI_entidad
+;
+DROP TABLE IF EXISTS patente
+;
+DROP TABLE IF EXISTS patente_contrato
+;
+DROP TABLE IF EXISTS patente_pais
+;
+DROP TABLE IF EXISTS patente_titular
+;
+DROP TABLE IF EXISTS planta_piloto
+;
+DROP TABLE IF EXISTS planta_piloto_autor
+;
+DROP TABLE IF EXISTS programa_ondas
+;
+DROP TABLE IF EXISTS programa_ondas_autor
+;
+DROP TABLE IF EXISTS prototipo_ind
+;
+DROP TABLE IF EXISTS prototipo_ind_autor
+;
+DROP TABLE IF EXISTS proyecto
+;
+DROP TABLE IF EXISTS proyecto_ext_CTI
+;
+DROP TABLE IF EXISTS proyecto_ext_CTI_entidad
+;
+DROP TABLE IF EXISTS proyecto_ext_CTI_investigador
+;
+DROP TABLE IF EXISTS proyecto_investigador
+;
+DROP TABLE IF EXISTS red_conocimiento
+;
+DROP TABLE IF EXISTS red_conocimiento_entidad
+;
+DROP TABLE IF EXISTS revista
+;
+DROP TABLE IF EXISTS secreto_emp
+;
+DROP TABLE IF EXISTS secreto_emp_autor
+;
+DROP TABLE IF EXISTS signos_dis
+;
+DROP TABLE IF EXISTS signos_dis_titular
+;
+DROP TABLE IF EXISTS software
+;
+DROP TABLE IF EXISTS software_autor
+;
+DROP TABLE IF EXISTS tipo_apoyo
+;
+DROP TABLE IF EXISTS tipo_empresa
+;
+DROP TABLE IF EXISTS tipo_identificacion_empresa
+;
+DROP TABLE IF EXISTS tipo_participacion_evento
+;
+DROP TABLE IF EXISTS tipo_proyecto
+;
+DROP TABLE IF EXISTS tipo_trabajo
+;
+DROP TABLE IF EXISTS trabajo_grado
+;
+DROP TABLE IF EXISTS trabajo_grado_director
+;
+DROP TABLE IF EXISTS via_obtencion
+;
+
+--  Create Tables 
+CREATE TABLE apoyo_prog_f
+(
+	k_codigo INTEGER NOT NULL AUTO_INCREMENT,
+	n_nombre VARCHAR(300) NOT NULL,
+	n_institucion VARCHAR(50) NOT NULL,
+	n_facultad VARCHAR(50) NOT NULL,
+	n_departamento VARCHAR(50) NOT NULL,
+	n_id_acto_admin VARCHAR(50) NOT NULL,
+	n_num_acto_admin VARCHAR(50) NOT NULL,
+	f_fecha DATE NOT NULL,
+	i_tipo_apoyo INTEGER,
+	c_categoria VARCHAR(10),
+	b_clasificado BOOL,
+	PRIMARY KEY (k_codigo),
+	KEY (c_categoria),
+	KEY (i_tipo_apoyo)
+) 
+;
+
+
+CREATE TABLE apoyo_prog_f_autor
+(
+	i_cod_apoyo_prog_f INTEGER,
+	i_cod_investigador INTEGER,
+	i_cod_grupo_investigacion INTEGER,
+	KEY (i_cod_apoyo_prog_f),
+	KEY (i_cod_grupo_investigacion),
+	KEY (i_cod_investigador)
+) 
+;
+
+
+CREATE TABLE area_conocimiento
+(
+	k_codigo VARCHAR(4) NOT NULL,
+	n_nombre VARCHAR(200) NOT NULL,
+	c_descripcion VARCHAR(300),
+	PRIMARY KEY (k_codigo)
+) 
+;
+
+
+CREATE TABLE articulo
+(
+	k_codigo INTEGER NOT NULL AUTO_INCREMENT,
+	n_titulo VARCHAR(200) NOT NULL,
+	i_ano INTEGER NOT NULL,
+	i_mes INTEGER,
+	i_volumen INTEGER,
+	i_pagina_inicial INTEGER,
+	i_pagina_final INTEGER,
+	i_ISSN_revista VARCHAR(15) NOT NULL,
+	c_pag_web VARCHAR(200),
+	c_DOI VARCHAR(200),
+	i_pais_publicacion INTEGER,
+	c_categoria VARCHAR(10),
+	b_clasificado BOOL,
+	PRIMARY KEY (k_codigo),
+	KEY (c_categoria),
+	KEY (i_pais_publicacion),
+	KEY (i_ISSN_revista)
+) 
+;
+
+
+CREATE TABLE articulo_autor
+(
+	i_cod_articulo INTEGER,
+	i_cod_investigador INTEGER,
+	i_cod_grupo_investigacion INTEGER,
+	KEY (i_cod_articulo),
+	KEY (i_cod_grupo_investigacion),
+	KEY (i_cod_investigador)
+) 
+;
+
+
+CREATE TABLE BCI
+(
+	k_codigo INTEGER NOT NULL AUTO_INCREMENT,
+	c_ISBN VARCHAR(19) NOT NULL,
+	n_titulo VARCHAR(300) NOT NULL,
+	PRIMARY KEY (k_codigo),
+	KEY (c_ISBN)
+) 
+;
+
+
+CREATE TABLE boletin
+(
+	k_codigo INTEGER NOT NULL AUTO_INCREMENT,
+	n_titulo VARCHAR(300) NOT NULL,
+	f_fecha_elaboracion DATE NOT NULL,
+	i_editor INTEGER NOT NULL,
+	n_institucion VARCHAR(300) NOT NULL,
+	c_categoria VARCHAR(10),
+	b_clasificado BOOL,
+	PRIMARY KEY (k_codigo),
+	KEY (c_categoria)
+) 
+;
+
+
+CREATE TABLE boletin_autor
+(
+	i_cod_boletin INTEGER,
+	i_cod_investigador INTEGER,
+	i_cod_grupo_investigacion INTEGER,
+	KEY (i_cod_boletin),
+	KEY (i_cod_grupo_investigacion),
+	KEY (i_cod_investigador)
+) 
+;
+
+
+CREATE TABLE cap_libro_autor
+(
+	i_cod_cap_libro INTEGER,
+	i_cod_integrante INTEGER,
+	i_cod_grupo_investigacion INTEGER,
+	KEY (i_cod_cap_libro),
+	KEY (i_cod_grupo_investigacion),
+	KEY (i_cod_integrante)
+) 
+;
+
+
+CREATE TABLE cap_libro_investigacion
+(
+	k_codigo INTEGER NOT NULL AUTO_INCREMENT,
+	c_ISBN_libro VARCHAR(19) NOT NULL,
+	n_titulo_cap VARCHAR(300) NOT NULL,
+	f_fecha_publicacion DATETIME NOT NULL,
+	b_validacion_inv_an5 BOOL,
+	c_categoria VARCHAR(10),
+	b_clasificado BOOL,
+	b_certificado_validacion BOOL,
+	PRIMARY KEY (k_codigo),
+	KEY (c_categoria),
+	KEY (c_ISBN_libro)
+) 
+;
+
+
+CREATE TABLE categoria
+(
+	k_codigo VARCHAR(10) NOT NULL,
+	n_nombre VARCHAR(100) NOT NULL,
+	c_area_conocimiento VARCHAR(4),
+	PRIMARY KEY (k_codigo),
+	KEY (c_area_conocimiento)
+) 
+;
+
+
+CREATE TABLE categoria_investigador
+(
+	k_codigo VARCHAR(4) NOT NULL,
+	n_nombre VARCHAR(30) NOT NULL,
+	c_descripcion VARCHAR(200),
+	PRIMARY KEY (k_codigo)
+) 
+;
+
+
+CREATE TABLE categoriaJCR
+(
+	k_codigo INTEGER NOT NULL AUTO_INCREMENT,
+	n_nombre VARCHAR(200) NOT NULL,
+	PRIMARY KEY (k_codigo)
+) 
+;
+
+
+CREATE TABLE categoriaSJR
+(
+	k_codigo INTEGER NOT NULL AUTO_INCREMENT,
+	n_nombre VARCHAR(200) NOT NULL,
+	PRIMARY KEY (k_codigo)
+) 
+;
+
+
+CREATE TABLE citacion
+(
+	k_codigo INTEGER NOT NULL AUTO_INCREMENT,
+	c_ISSN VARCHAR(15),
+	c_ISBN VARCHAR(19),
+	i_libro_investigacion INTEGER,
+	PRIMARY KEY (k_codigo),
+	KEY (c_ISBN),
+	KEY (i_libro_investigacion),
+	KEY (c_ISSN)
+) 
+;
+
+
+CREATE TABLE clasificacion_JCR
+(
+	i_ISSN VARCHAR(15) NOT NULL,
+	i_ano INTEGER NOT NULL,
+	c_cuartil VARCHAR(2) NOT NULL,
+	i_categoria INTEGER,
+	PRIMARY KEY (i_ISSN, i_ano),
+	KEY (i_categoria),
+	KEY (i_ISSN)
+) 
+;
+
+
+CREATE TABLE clasificacion_SJR
+(
+	i_ISSN VARCHAR(15) NOT NULL,
+	i_ano INTEGER NOT NULL,
+	c_cuartil VARCHAR(2) NOT NULL,
+	i_categoria INTEGER,
+	PRIMARY KEY (i_ISSN, i_ano),
+	KEY (i_categoria),
+	KEY (i_ISSN)
+) 
+;
+
+
+CREATE TABLE consultoria
+(
+	k_codigo INTEGER NOT NULL AUTO_INCREMENT,
+	n_titulo VARCHAR(300) NOT NULL,
+	n_numero_contrato VARCHAR(50) NOT NULL,
+	f_fecha DATE NOT NULL,
+	b_certificacion_empresa BOOL NOT NULL,
+	c_categoria VARCHAR(10),
+	b_clasificado BOOL,
+	PRIMARY KEY (k_codigo),
+	KEY (c_categoria)
+) 
+;
+
+
+CREATE TABLE consultoria_autor
+(
+	i_cod_consultoria INTEGER,
+	i_cod_investigador INTEGER,
+	i_cod_grupo_investigacion INTEGER,
+	KEY (i_cod_consultoria),
+	KEY (i_cod_grupo_investigacion),
+	KEY (i_cod_investigador)
+) 
+;
+
+
+CREATE TABLE departamento
+(
+	k_codigo INTEGER NOT NULL,
+	n_nombre VARCHAR(50) NOT NULL,
+	PRIMARY KEY (k_codigo)
+) 
+;
+
+
+CREATE TABLE diseno_industrial
+(
+	k_codigo INTEGER NOT NULL AUTO_INCREMENT,
+	c_numero_reg VARCHAR(50) NOT NULL,
+	n_titulo_reg VARCHAR(300) NOT NULL,
+	i_ano_obtencion INTEGER NOT NULL,
+	b_gaceta BOOL NOT NULL,
+	i_pais_obtencion INTEGER NOT NULL,
+	b_contrato BOOL NOT NULL,
+	c_categoria VARCHAR(10),
+	b_clasificado BOOL,
+	PRIMARY KEY (k_codigo),
+	KEY (c_categoria),
+	KEY (i_pais_obtencion)
+) 
+;
+
+
+CREATE TABLE diseno_industrial_titular
+(
+	i_cod_diseno_industrial INTEGER,
+	i_cod_investigador INTEGER,
+	i_cod_grupo_investigacion INTEGER,
+	KEY (i_cod_diseno_industrial),
+	KEY (i_cod_grupo_investigacion),
+	KEY (i_cod_investigador)
+) 
+;
+
+
+CREATE TABLE distincion_trabajo_grado
+(
+	k_codigo INTEGER NOT NULL AUTO_INCREMENT,
+	n_nombre VARCHAR(100) NOT NULL,
+	PRIMARY KEY (k_codigo)
+) 
+;
+
+
+CREATE TABLE doc_trabajo
+(
+	k_codigo INTEGER NOT NULL AUTO_INCREMENT,
+	n_titulo VARCHAR(300) NOT NULL,
+	i_ano INTEGER NOT NULL,
+	n_pag_web VARCHAR(300),
+	n_doi VARCHAR(300),
+	c_categoria VARCHAR(10),
+	b_clasificado BOOL,
+	PRIMARY KEY (k_codigo),
+	KEY (c_categoria)
+) 
+;
+
+
+CREATE TABLE doc_trabajo_autor
+(
+	i_cod_doc_trabajo INTEGER,
+	i_cod_investigador INTEGER,
+	i_cod_grupo_investigacion INTEGER,
+	KEY (i_cod_doc_trabajo),
+	KEY (i_cod_grupo_investigacion),
+	KEY (i_cod_investigador)
+) 
+;
+
+
+CREATE TABLE doc_trabajo_entidad
+(
+	i_cod_doc_trabajo INTEGER,
+	i_cod_entidad INTEGER,
+	KEY (i_cod_doc_trabajo),
+	KEY (i_cod_entidad)
+) 
+;
+
+
+CREATE TABLE edicion
+(
+	k_codigo INTEGER NOT NULL AUTO_INCREMENT,
+	n_titulo VARCHAR(300) NOT NULL,
+	n_isbn VARCHAR(50) NOT NULL,
+	n_issn VARCHAR(50),
+	i_editor INTEGER NOT NULL,
+	f_fecha_editor DATE NOT NULL,
+	i_ano INTEGER NOT NULL,
+	n_pag_web VARCHAR(300),
+	c_categoria VARCHAR(10),
+	b_clasificado BOOL,
+	i_cod_grupo_investigacion INTEGER,
+	PRIMARY KEY (k_codigo),
+	KEY (i_cod_grupo_investigacion),
+	KEY (c_categoria),
+	KEY (i_editor)
+) 
+;
+
+
+CREATE TABLE editorial
+(
+	k_codigo INTEGER NOT NULL AUTO_INCREMENT,
+	n_nombre VARCHAR(300) NOT NULL,
+	PRIMARY KEY (k_codigo)
+) 
+;
+
+
+CREATE TABLE emp_base_tec
+(
+	k_codigo INTEGER NOT NULL AUTO_INCREMENT,
+	n_nombre VARCHAR(300) NOT NULL,
+	b_certificado_camara BOOL NOT NULL,
+	n_num_tributario VARCHAR(15) NOT NULL,
+	b_certificacion_institucional BOOL NOT NULL,
+	i_tipo_identificacion INTEGER NOT NULL,
+	i_tipo_empresa INTEGER NOT NULL,
+	c_categoria VARCHAR(10),
+	b_clasificado BOOL,
+	PRIMARY KEY (k_codigo),
+	KEY (c_categoria),
+	KEY (i_tipo_empresa),
+	KEY (i_tipo_identificacion)
+) 
+;
+
+
+CREATE TABLE emp_base_tec_autor
+(
+	i_cod_emp_base_tec INTEGER,
+	i_cod_investigador INTEGER,
+	i_cod_grupo_investigacion INTEGER,
+	KEY (i_cod_emp_base_tec),
+	KEY (i_cod_grupo_investigacion),
+	KEY (i_cod_investigador)
+) 
+;
+
+
+CREATE TABLE entidad
+(
+	k_codigo INTEGER NOT NULL AUTO_INCREMENT,
+	n_nombre VARCHAR(200) NOT NULL,
+	b_institucion BOOL NOT NULL,
+	PRIMARY KEY (k_codigo)
+) 
+;
+
+
+CREATE TABLE espacio_part_proyecto_CTI
+(
+	k_codigo INTEGER NOT NULL AUTO_INCREMENT,
+	n_nombre_espacio VARCHAR(300) NOT NULL,
+	f_fecha_inicio DATE NOT NULL,
+	n_nombre_comunidad VARCHAR(300),
+	n_constancia_participacion BOOL,
+	c_categoria VARCHAR(10),
+	b_clasificado BOOL,
+	PRIMARY KEY (k_codigo),
+	KEY (c_categoria)
+) 
+;
+
+
+CREATE TABLE espacio_part_proyecto_CTI_autor
+(
+	i_cod_espacio_part_proyecto_CTI INTEGER,
+	i_cod_investigador INTEGER,
+	b_lider BOOL,
+	i_cod_grupo_investigacion INTEGER,
+	KEY (i_cod_espacio_part_proyecto_CTI),
+	KEY (i_cod_grupo_investigacion),
+	KEY (i_cod_investigador)
+) 
+;
+
+
+CREATE TABLE espacio_part_proyecto_CTI_entidad
+(
+	i_cod_proy_participacion INTEGER,
+	i_cod_entidad INTEGER,
+	KEY (i_cod_entidad),
+	KEY (i_cod_proy_participacion)
+) 
+;
+
+
+CREATE TABLE esq_circuito
+(
+	k_codigo INTEGER NOT NULL AUTO_INCREMENT,
+	c_num_registro VARCHAR(50) NOT NULL,
+	n_titulo_registro VARCHAR(300) NOT NULL,
+	i_ano_obtencion INTEGER NOT NULL,
+	i_pais_obtencion INTEGER NOT NULL,
+	b_contrato BOOL,
+	c_categoria VARCHAR(10),
+	b_clasificado BOOL,
+	PRIMARY KEY (k_codigo),
+	KEY (c_categoria),
+	KEY (i_pais_obtencion)
+) 
+;
+
+
+CREATE TABLE esq_circuito_titular
+(
+	i_cod_esq_circuito INTEGER,
+	i_cod_investigador INTEGER,
+	i_cod_grupo_investigacion INTEGER,
+	KEY (i_cod_esq_circuito),
+	KEY (i_cod_grupo_investigacion),
+	KEY (i_cod_investigador)
+) 
+;
+
+
+CREATE TABLE est_comunicacion_conocimiento
+(
+	k_codigo INTEGER NOT NULL AUTO_INCREMENT,
+	n_nombre VARCHAR(300) NOT NULL,
+	f_fecha_inicio DATE NOT NULL,
+	i_lider INTEGER NOT NULL,
+	n_nombre_comunidad VARCHAR(300) NOT NULL,
+	b_certificacion BOOL,
+	c_categoria VARCHAR(10),
+	b_clasificado BOOL,
+	PRIMARY KEY (k_codigo),
+	KEY (c_categoria)
+) 
+;
+
+
+CREATE TABLE est_comunicacion_conocimiento_entidad
+(
+	k_cod_est_comunicacion INTEGER,
+	k_cod_entidad INTEGER,
+	KEY (k_cod_entidad),
+	KEY (k_cod_est_comunicacion)
+) 
+;
+
+
+CREATE TABLE est_comunicacion_conocimiento_investigador
+(
+	i_cod_est_comunicacion_conocimiento INTEGER,
+	i_cod_investigador INTEGER,
+	i_cod_grupo_investigacion INTEGER,
+	KEY (i_cod_est_comunicacion_conocimiento),
+	KEY (i_cod_investigador)
+) 
+;
+
+
+CREATE TABLE est_fomento_CTI
+(
+	k_codigo INTEGER NOT NULL AUTO_INCREMENT,
+	n_nombre VARCHAR(300) NOT NULL,
+	f_fecha_inicio DATE NOT NULL,
+	i_investigador_principal INTEGER NOT NULL,
+	b_certificado BOOL,
+	c_categoria VARCHAR(10),
+	b_clasificado BOOL,
+	i_cod_grupo_investigacion INTEGER,
+	PRIMARY KEY (k_codigo),
+	KEY (i_cod_grupo_investigacion),
+	KEY (i_investigador_principal)
+) 
+;
+
+
+CREATE TABLE est_fomento_CTI_entidad
+(
+	i_cod_est_fomento_ INTEGER,
+	i_cod_entidad INTEGER,
+	KEY (i_cod_entidad),
+	KEY (i_cod_est_fomento_)
+) 
+;
+
+
+CREATE TABLE evento_cientifico
+(
+	k_codigo INTEGER NOT NULL AUTO_INCREMENT,
+	n_nombre VARCHAR(300) NOT NULL,
+	f_fecha_inicio DATE NOT NULL,
+	f_fecha_fin DATE NOT NULL,
+	n_entidad_patrocinadora VARCHAR(30),
+	i_tipo_participacion INTEGER,
+	PRIMARY KEY (k_codigo)
+) 
+;
+
+
+CREATE TABLE evento_cientifico_entidad
+(
+	k_cod_evento_cientifico INTEGER,
+	k_cod_entidad INTEGER,
+	KEY (k_cod_entidad),
+	KEY (k_cod_evento_cientifico)
+) 
+;
+
+
+CREATE TABLE evento_cientifico_investigador
+(
+	k_codigo INTEGER NOT NULL AUTO_INCREMENT,
+	i_cod_evento_cientifico INTEGER,
+	i_cod_investigador INTEGER,
+	i_tipo_participacion INTEGER NOT NULL,
+	c_categoria VARCHAR(10),
+	b_clasificado BOOL,
+	i_cod_grupo_investigacion INTEGER,
+	PRIMARY KEY (k_codigo),
+	KEY (i_cod_evento_cientifico),
+	KEY (i_cod_grupo_investigacion),
+	KEY (i_cod_investigador),
+	KEY (i_tipo_participacion)
+) 
+;
+
+
+CREATE TABLE financiacion_proyecto
+(
+	k_codigo INTEGER NOT NULL AUTO_INCREMENT,
+	n_nombre VARCHAR(50) NOT NULL,
+	n_descripcion VARCHAR(100),
+	PRIMARY KEY (k_codigo)
+) 
+;
+
+
+CREATE TABLE gen_cont_impreso
+(
+	k_codigo INTEGER NOT NULL AUTO_INCREMENT,
+	n_titulo VARCHAR(200) NOT NULL,
+	f_fecha_publicacion DATE NOT NULL,
+	n_medio_circulacion VARCHAR(50) NOT NULL,
+	n_ambito VARCHAR(50) NOT NULL,
+	i_lugar_publicacion INTEGER NOT NULL,
+	b_certificacion BOOL,
+	c_categoria VARCHAR(10),
+	b_clasificado BOOL,
+	PRIMARY KEY (k_codigo),
+	KEY (c_categoria),
+	KEY (i_lugar_publicacion)
+) 
+;
+
+
+CREATE TABLE gen_cont_multimedia
+(
+	k_codigo INTEGER NOT NULL AUTO_INCREMENT,
+	n_titulo VARCHAR(200) NOT NULL,
+	n_ambito VARCHAR(50) NOT NULL,
+	n_comunidades VARCHAR(300) NOT NULL,
+	n_resumen VARCHAR(300) NOT NULL,
+	f_fecha DATE NOT NULL,
+	n_medio_circulacion VARCHAR(50) NOT NULL,
+	b_certificacion BOOL,
+	c_categoria VARCHAR(10),
+	b_clasificado BOOL,
+	PRIMARY KEY (k_codigo),
+	KEY (c_categoria)
+) 
+;
+
+
+CREATE TABLE gen_cont_multimedia_entidad
+(
+	i_cod_gen_cont_multimedia INTEGER,
+	i_cod_entidad INTEGER,
+	KEY (i_cod_entidad),
+	KEY (i_cod_gen_cont_multimedia)
+) 
+;
+
+
+CREATE TABLE gen_cont_multimedia_participante
+(
+	i_cod_gen_cont_multimedia INTEGER,
+	i_cod_investigador INTEGER,
+	i_tipo_participacion INTEGER NOT NULL,
+	i_cod_grupo_investigacion INTEGER,
+	KEY (i_cod_gen_cont_multimedia),
+	KEY (i_tipo_participacion),
+	KEY (i_cod_grupo_investigacion),
+	KEY (i_cod_investigador)
+) 
+;
+
+
+CREATE TABLE gen_cont_participacion
+(
+	k_codigo INTEGER NOT NULL AUTO_INCREMENT,
+	n_nombre VARCHAR(50),
+	PRIMARY KEY (k_codigo)
+) 
+;
+
+
+CREATE TABLE gen_cont_virtual
+(
+	k_codigo INTEGER NOT NULL AUTO_INCREMENT,
+	n_titulo VARCHAR(200) NOT NULL,
+	n_comunidad VARCHAR(300) NOT NULL,
+	n_resumen VARCHAR(300) NOT NULL,
+	f_fecha DATE NOT NULL,
+	n_medio_circulacion VARCHAR(50) NOT NULL,
+	n_pag_web VARCHAR(300),
+	b_certificacion BOOL,
+	c_categoria VARCHAR(10),
+	b_clasificado BOOL,
+	PRIMARY KEY (k_codigo)
+) 
+;
+
+
+CREATE TABLE gen_cont_virtual_autor
+(
+	i_cod_gen_cont_virtual INTEGER,
+	i_cod_investigador INTEGER,
+	i_cod_grupo_investigacion INTEGER,
+	KEY (i_cod_gen_cont_virtual),
+	KEY (i_cod_grupo_investigacion),
+	KEY (i_cod_investigador)
+) 
+;
+
+
+CREATE TABLE gen_cont_virtual_entidad
+(
+	i_cod_gen_cont_virtual INTEGER,
+	i_cod_entidad INTEGER,
+	KEY (i_cod_entidad),
+	KEY (i_cod_gen_cont_virtual)
+) 
+;
+
+
+CREATE TABLE gen_contenido_autor
+(
+	i_cod_gen_contenido INTEGER,
+	i_cod_investigador INTEGER,
+	i_cod_grupo_investigacion INTEGER,
+	KEY (i_cod_gen_contenido),
+	KEY (i_cod_grupo_investigacion)
+) 
+;
+
+
+CREATE TABLE grupo_investigacion
+(
+	k_codigo INTEGER NOT NULL AUTO_INCREMENT,
+	n_nombre VARCHAR(200),
+	PRIMARY KEY (k_codigo)
+) 
+;
+
+
+CREATE TABLE informe_final
+(
+	k_codigo INTEGER NOT NULL AUTO_INCREMENT,
+	n_titulo VARCHAR(300) NOT NULL,
+	n_nombre_proyecto VARCHAR(300) NOT NULL,
+	f_fecha_elaboracion DATE NOT NULL,
+	c_categoria VARCHAR(10),
+	b_clasificado BOOL,
+	PRIMARY KEY (k_codigo),
+	KEY (c_categoria)
+) 
+;
+
+
+CREATE TABLE informe_final_autor
+(
+	i_cod_informe_final INTEGER,
+	i_cod_investigador INTEGER,
+	i_cod_grupo_investigacion INTEGER,
+	KEY (i_cod_grupo_investigacion),
+	KEY (i_cod_informe_final),
+	KEY (i_cod_investigador)
+) 
+;
+
+
+CREATE TABLE informe_tec
+(
+	k_codigo INTEGER NOT NULL AUTO_INCREMENT,
+	n_titulo VARCHAR(300) NOT NULL,
+	n_titulo_inv VARCHAR(300) NOT NULL,
+	f_fecha DATE NOT NULL,
+	n_certificacion_entidad BOOL NOT NULL,
+	c_categoria VARCHAR(10),
+	b_clasificado BOOL,
+	PRIMARY KEY (k_codigo),
+	KEY (c_categoria)
+) 
+;
+
+
+CREATE TABLE informe_tec_autor
+(
+	i_cod_informe INTEGER,
+	i_cod_investigador INTEGER,
+	i_cod_grupo_investigacion INTEGER,
+	KEY (i_cod_grupo_investigacion),
+	KEY (i_cod_informe),
+	KEY (i_cod_investigador)
+) 
+;
+
+
+CREATE TABLE innovacion_ps
+(
+	k_codigo INTEGER NOT NULL AUTO_INCREMENT,
+	n_nombre VARCHAR(300) NOT NULL,
+	f_fecha DATE NOT NULL,
+	n_nombre_empresa VARCHAR(300) NOT NULL,
+	n_nit VARCHAR(50) NOT NULL,
+	b_certificado_imp_peq BOOL NOT NULL,
+	b_certificado_imp_med BOOL NOT NULL,
+	b_certificado_imp_gran BOOL NOT NULL,
+	c_categoria VARCHAR(10),
+	b_clasificado BOOL,
+	PRIMARY KEY (k_codigo),
+	KEY (c_categoria)
+) 
+;
+
+
+CREATE TABLE innovacion_ps_autor
+(
+	i_cod_innovacion_ps INTEGER,
+	i_cod_investigador INTEGER,
+	i_cod_grupo_investigacion INTEGER,
+	KEY (i_cod_grupo_investigacion),
+	KEY (i_cod_innovacion_ps),
+	KEY (i_cod_investigador)
+) 
+;
+
+
+CREATE TABLE integrante_grupo
+(
+	i_cod_grupo_investigacion INTEGER,
+	i_cod_investigador INTEGER,
+	b_lider_grupo BOOL,
+	KEY (i_cod_grupo_investigacion),
+	KEY (i_cod_investigador)
+) 
+;
+
+
+CREATE TABLE investigador
+(
+	k_codigo INTEGER NOT NULL AUTO_INCREMENT,
+	n_nombre VARCHAR(200) NOT NULL,
+	c_categoria VARCHAR(4),
+	PRIMARY KEY (k_codigo),
+	KEY (c_categoria)
+) 
+;
+
+
+CREATE TABLE libro
+(
+	k_ISBN VARCHAR(19) NOT NULL,
+	n_titulo VARCHAR(300) NOT NULL,
+	i_editorial INTEGER NOT NULL,
+	i_pais_publicacion INTEGER NOT NULL,
+	PRIMARY KEY (k_ISBN),
+	KEY (i_editorial),
+	KEY (i_pais_publicacion)
+) 
+;
+
+
+CREATE TABLE libro_autor
+(
+	i_cod_libro INTEGER,
+	i_cod_investigador INTEGER,
+	i_cod_grupo_investigacion INTEGER,
+	KEY (i_cod_grupo_investigacion),
+	KEY (i_cod_investigador),
+	KEY (i_cod_libro)
+) 
+;
+
+
+CREATE TABLE libro_investigacion
+(
+	k_codigo INTEGER NOT NULL AUTO_INCREMENT,
+	c_ISBN_libro VARCHAR(10) NOT NULL,
+	f_fecha_publicacion DATE NOT NULL,
+	b_validacion_inv_an5 BOOL,
+	c_categoria VARCHAR(10),
+	b_clasificado BOOL,
+	b_certificado_validacion BOOL,
+	PRIMARY KEY (k_codigo),
+	KEY (c_categoria),
+	KEY (c_ISBN_libro)
+) 
+;
+
+
+CREATE TABLE municipio
+(
+	k_codigo INTEGER NOT NULL,
+	n_nombre VARCHAR(50) NOT NULL,
+	i_departamento INTEGER NOT NULL,
+	PRIMARY KEY (k_codigo),
+	KEY (i_departamento)
+) 
+;
+
+
+CREATE TABLE pais
+(
+	k_codigo INTEGER NOT NULL AUTO_INCREMENT,
+	n_nombre VARCHAR(50) NOT NULL,
+	PRIMARY KEY (k_codigo)
+) 
+;
+
+
+CREATE TABLE part_ciud_proyecto_CTI
+(
+	k_codigo INTEGER NOT NULL AUTO_INCREMENT,
+	n_titulo VARCHAR(300) NOT NULL,
+	f_fecha_inicio DATE NOT NULL,
+	n_nombre_comunidad VARCHAR(300) NOT NULL,
+	i_investigador_principal INTEGER NOT NULL,
+	n_constancia_participacion BOOL,
+	c_categoria VARCHAR(10),
+	b_clasificado BOOL,
+	i_cod_grupo_investigacion INTEGER,
+	PRIMARY KEY (k_codigo),
+	KEY (c_categoria),
+	KEY (i_cod_grupo_investigacion),
+	KEY (i_investigador_principal)
+) 
+;
+
+
+CREATE TABLE part_proy_CTI_entidad
+(
+	i_cod_part_proyecto_CTI INTEGER,
+	i_cod_entidad INTEGER,
+	KEY (i_cod_entidad),
+	KEY (i_cod_part_proyecto_CTI)
+) 
+;
+
+
+CREATE TABLE patente
+(
+	k_codigo INTEGER NOT NULL AUTO_INCREMENT,
+	n_numero_patente VARCHAR(50) NOT NULL,
+	b_certificado_patente BOOL NOT NULL,
+	i_ano_obtencion INTEGER NOT NULL,
+	n_gaceta VARCHAR(50) NOT NULL,
+	c_categoria VARCHAR(10),
+	b_clasificado BOOL,
+	i_via_obtencion INTEGER,
+	b_examen_preliminar BOOL,
+	b_examen_fondo BOOL,
+	PRIMARY KEY (k_codigo),
+	KEY (c_categoria),
+	KEY (i_via_obtencion)
+) 
+;
+
+
+CREATE TABLE patente_contrato
+(
+	k_codigo INTEGER NOT NULL AUTO_INCREMENT,
+	c_numero_contrato VARCHAR(20) NOT NULL,
+	c_NIT_empresa VARCHAR(20) NOT NULL,
+	n_nombre_empresa VARCHAR(50) NOT NULL,
+	b_certificado_existencia BOOL NOT NULL,
+	i_codigo_patente INTEGER NOT NULL,
+	PRIMARY KEY (k_codigo),
+	KEY (i_codigo_patente)
+) 
+;
+
+
+CREATE TABLE patente_pais
+(
+	i_cod_patente INTEGER,
+	i_cod_pais INTEGER,
+	KEY (i_cod_pais),
+	KEY (i_cod_patente)
+) 
+;
+
+
+CREATE TABLE patente_titular
+(
+	i_cod_patente INTEGER,
+	i_cod_investigador INTEGER,
+	i_cod_grupo_investigacion INTEGER,
+	KEY (i_cod_grupo_investigacion),
+	KEY (i_cod_investigador),
+	KEY (i_cod_patente)
+) 
+;
+
+
+CREATE TABLE planta_piloto
+(
+	k_codigo INTEGER NOT NULL AUTO_INCREMENT,
+	n_nombre VARCHAR(300) NOT NULL,
+	f_fecha DATE NOT NULL,
+	i_institucion_financiadora INTEGER NOT NULL,
+	b_copia_contrato BOOL,
+	i_pais_elaboracion INTEGER NOT NULL,
+	c_categoria VARCHAR(10),
+	b_clasificado BOOL,
+	PRIMARY KEY (k_codigo),
+	KEY (c_categoria),
+	KEY (i_institucion_financiadora),
+	KEY (i_pais_elaboracion)
+) 
+;
+
+
+CREATE TABLE planta_piloto_autor
+(
+	i_cod_planta_piloto INTEGER,
+	i_cod_investigador INTEGER,
+	i_cod_grupo_investigacion INTEGER,
+	KEY (i_cod_grupo_investigacion),
+	KEY (i_cod_investigador),
+	KEY (i_cod_planta_piloto)
+) 
+;
+
+
+CREATE TABLE programa_ondas
+(
+	k_codigo INTEGER NOT NULL AUTO_INCREMENT,
+	n_nombre VARCHAR(150) NOT NULL,
+	b_registro_BD BOOL NOT NULL,
+	n_institucion VARCHAR(200) NOT NULL,
+	i_municipio INTEGER,
+	i_departamento INTEGER,
+	b_resultados BOOL NOT NULL,
+	b_reconocido BOOL,
+	b_participacion_ferias BOOL,
+	c_categoria VARCHAR(10),
+	b_clasificado BOOL,
+	PRIMARY KEY (k_codigo),
+	KEY (c_categoria),
+	KEY (i_departamento),
+	KEY (i_municipio)
+) 
+;
+
+
+CREATE TABLE programa_ondas_autor
+(
+	i_cod_programa_ondas INTEGER,
+	i_cod_investigador INTEGER,
+	i_cod_grupo_investigacion INTEGER,
+	KEY (i_cod_grupo_investigacion),
+	KEY (i_cod_investigador),
+	KEY (i_cod_programa_ondas)
+) 
+;
+
+
+CREATE TABLE prototipo_ind
+(
+	k_codigo INTEGER NOT NULL AUTO_INCREMENT,
+	n_nombre VARCHAR(300) NOT NULL,
+	f_fecha DATE NOT NULL,
+	i_institucion_financiadora INTEGER NOT NULL,
+	i_pais_obtencion INTEGER NOT NULL,
+	c_categoria VARCHAR(10),
+	b_clasificado BOOL,
+	PRIMARY KEY (k_codigo),
+	KEY (c_categoria),
+	KEY (i_institucion_financiadora),
+	KEY (i_pais_obtencion)
+) 
+;
+
+
+CREATE TABLE prototipo_ind_autor
+(
+	i_cod_prototipo_ind INTEGER,
+	i_cod_investigador INTEGER,
+	i_cod_grupo_investigacion INTEGER,
+	KEY (i_cod_grupo_investigacion),
+	KEY (i_cod_investigador),
+	KEY (i_cod_prototipo_ind)
+) 
+;
+
+
+CREATE TABLE proyecto
+(
+	k_codigo INTEGER NOT NULL AUTO_INCREMENT,
+	n_titulo VARCHAR(300) NOT NULL,
+	n_intitucion VARCHAR(300) NOT NULL,
+	n_entidad_financiadora VARCHAR(300) NOT NULL,
+	i_financiacion INTEGER NOT NULL,
+	b_acto_admin BOOL NOT NULL,
+	i_ano INTEGER NOT NULL,
+	n_numero_contrato VARCHAR(50),
+	i_tipo_proyecto INTEGER,
+	c_categoria VARCHAR(10),
+	b_clasificado BOOL,
+	PRIMARY KEY (k_codigo),
+	KEY (c_categoria),
+	KEY (i_financiacion),
+	KEY (i_tipo_proyecto)
+) 
+;
+
+
+CREATE TABLE proyecto_ext_CTI
+(
+	k_codigo INTEGER NOT NULL AUTO_INCREMENT,
+	n_nombre VARCHAR(300) NOT NULL,
+	f_fecha_inicio DATE NOT NULL,
+	f_fecha_fin DATE,
+	n_nombre_comunidad VARCHAR(300) NOT NULL,
+	n_resumen_ctel VARCHAR(300) NOT NULL,
+	c_categoria VARCHAR(10),
+	b_clasificado BOOL,
+	PRIMARY KEY (k_codigo),
+	KEY (c_categoria)
+) 
+;
+
+
+CREATE TABLE proyecto_ext_CTI_entidad
+(
+	i_cod_proyecto_ext_CTI INTEGER,
+	i_cod_entidad INTEGER,
+	KEY (i_cod_entidad),
+	KEY (i_cod_proyecto_ext_CTI)
+) 
+;
+
+
+CREATE TABLE proyecto_ext_CTI_investigador
+(
+	i_cod_proyecto_ext INTEGER,
+	i_cod_investigador INTEGER,
+	b_investigador_principal BOOL,
+	i_cod_grupo_investigacion INTEGER,
+	KEY (i_cod_investigador),
+	KEY (i_cod_proyecto_ext)
+) 
+;
+
+
+CREATE TABLE proyecto_investigador
+(
+	i_cod_proyecto INTEGER,
+	i_cod_investigador INTEGER,
+	b_investigador_principal BOOL,
+	i_cod_grupo_investigacion INTEGER,
+	KEY (i_cod_grupo_investigacion),
+	KEY (i_cod_investigador),
+	KEY (i_cod_proyecto)
+) 
+;
+
+
+CREATE TABLE red_conocimiento
+(
+	k_codigo INTEGER NOT NULL AUTO_INCREMENT,
+	n_nombre VARCHAR(300) NOT NULL,
+	i_pais INTEGER NOT NULL,
+	f_fecha_inicio DATE NOT NULL,
+	i_investigador_principal INTEGER NOT NULL,
+	n_nombre_comunidad VARCHAR(300) NOT NULL,
+	n_pag_web VARCHAR(300),
+	b_lider_red BOOL,
+	c_categoria VARCHAR(10),
+	b_clasificado BOOL,
+	i_cod_grupo_investigacion INTEGER,
+	PRIMARY KEY (k_codigo),
+	KEY (c_categoria),
+	KEY (i_cod_grupo_investigacion),
+	KEY (i_investigador_principal)
+) 
+;
+
+
+CREATE TABLE red_conocimiento_entidad
+(
+	i_cod_red_conocimiento INTEGER,
+	i_cod_entidad INTEGER,
+	KEY (i_cod_red_conocimiento)
+) 
+;
+
+
+CREATE TABLE revista
+(
+	k_ISSN VARCHAR(15) NOT NULL,
+	n_nombre VARCHAR(200) NOT NULL,
+	PRIMARY KEY (k_ISSN)
+) 
+;
+
+
+CREATE TABLE secreto_emp
+(
+	k_codigo INTEGER NOT NULL AUTO_INCREMENT,
+	n_nombre VARCHAR(300) NOT NULL,
+	i_valor_contrato INTEGER NOT NULL,
+	b_certificacion BOOL NOT NULL,
+	n_numero_contrato VARCHAR(50) NOT NULL,
+	c_categoria VARCHAR(10),
+	b_clasificado BOOL,
+	PRIMARY KEY (k_codigo),
+	KEY (c_categoria)
+) 
+;
+
+
+CREATE TABLE secreto_emp_autor
+(
+	i_cod_secreto_emp INTEGER,
+	i_cod_investigador INTEGER,
+	i_cod_grupo_investigacion INTEGER,
+	KEY (i_cod_grupo_investigacion),
+	KEY (i_cod_investigador),
+	KEY (i_cod_secreto_emp)
+) 
+;
+
+
+CREATE TABLE signos_dis
+(
+	k_codigo INTEGER NOT NULL AUTO_INCREMENT,
+	c_numero_reg VARCHAR(50) NOT NULL,
+	n_titulo VARCHAR(300) NOT NULL,
+	i_ano INTEGER NOT NULL,
+	i_mes INTEGER NOT NULL,
+	b_certificado_reg BOOL,
+	n_condiciones_uso VARCHAR(300),
+	i_pais_obtencion INTEGER NOT NULL,
+	c_categoria VARCHAR(10),
+	b_clasificado BOOL,
+	PRIMARY KEY (k_codigo),
+	KEY (c_categoria),
+	KEY (i_pais_obtencion)
+) 
+;
+
+
+CREATE TABLE signos_dis_titular
+(
+	i_cod_signos_dis INTEGER,
+	i_cod_investigador INTEGER,
+	i_cod_grupo_investigacion INTEGER,
+	KEY (i_cod_grupo_investigacion),
+	KEY (i_cod_investigador),
+	KEY (i_cod_signos_dis)
+) 
+;
+
+
+CREATE TABLE software
+(
+	k_codigo INTEGER NOT NULL AUTO_INCREMENT,
+	n_titulo VARCHAR(300) NOT NULL,
+	c_num_reg_derechos_autor VARCHAR(50) NOT NULL,
+	i_ano INTEGER NOT NULL,
+	n_descripcion VARCHAR(800) NOT NULL,
+	c_cod_proy_colciencias VARCHAR(20),
+	b_certificacion BOOL,
+	c_categoria VARCHAR(10),
+	b_clasificado BOOL,
+	PRIMARY KEY (k_codigo),
+	KEY (c_categoria)
+) 
+;
+
+
+CREATE TABLE software_autor
+(
+	i_cod_software INTEGER,
+	i_cod_investigador INTEGER,
+	i_cod_grupo_investigacion INTEGER,
+	KEY (i_cod_grupo_investigacion),
+	KEY (i_cod_investigador),
+	KEY (i_cod_software)
+) 
+;
+
+
+CREATE TABLE tipo_apoyo
+(
+	k_codigo INTEGER NOT NULL AUTO_INCREMENT,
+	n_nombre VARCHAR(100) NOT NULL,
+	PRIMARY KEY (k_codigo)
+) 
+;
+
+
+CREATE TABLE tipo_empresa
+(
+	k_codigo INTEGER NOT NULL AUTO_INCREMENT,
+	n_nombre VARCHAR(50) NOT NULL,
+	PRIMARY KEY (k_codigo)
+) 
+;
+
+
+CREATE TABLE tipo_identificacion_empresa
+(
+	k_codigo INTEGER NOT NULL AUTO_INCREMENT,
+	n_nombre VARCHAR(50) NOT NULL,
+	PRIMARY KEY (k_codigo)
+) 
+;
+
+
+CREATE TABLE tipo_participacion_evento
+(
+	k_codigo INTEGER NOT NULL AUTO_INCREMENT,
+	n_nombre VARCHAR(50) NOT NULL,
+	PRIMARY KEY (k_codigo)
+) 
+;
+
+
+CREATE TABLE tipo_proyecto
+(
+	k_codigo INTEGER NOT NULL AUTO_INCREMENT,
+	n_nombre VARCHAR(50) NOT NULL,
+	PRIMARY KEY (k_codigo)
+) 
+;
+
+
+CREATE TABLE tipo_trabajo
+(
+	k_codigo INTEGER NOT NULL AUTO_INCREMENT,
+	n_nombre VARCHAR(50) NOT NULL,
+	PRIMARY KEY (k_codigo)
+) 
+;
+
+
+CREATE TABLE trabajo_grado
+(
+	k_codigo INTEGER NOT NULL AUTO_INCREMENT,
+	n_titulo VARCHAR(300) NOT NULL,
+	n_autor VARCHAR(300) NOT NULL,
+	n_institucion VARCHAR(300) NOT NULL,
+	i_ano INTEGER NOT NULL,
+	b_aprobado BOOL NOT NULL,
+	i_distincion INTEGER,
+	i_tipo_trabajo INTEGER,
+	c_categoria VARCHAR(10),
+	b_clasificado BOOL,
+	PRIMARY KEY (k_codigo),
+	KEY (c_categoria),
+	KEY (i_distincion),
+	KEY (i_tipo_trabajo)
+) 
+;
+
+
+CREATE TABLE trabajo_grado_director
+(
+	i_cod_trabajo_grado INTEGER,
+	i_cod_investigador INTEGER,
+	b_director BOOL,
+	i_cod_grupo_investigacion INTEGER,
+	KEY (i_cod_grupo_investigacion),
+	KEY (i_cod_investigador),
+	KEY (i_cod_trabajo_grado)
+) 
+;
+
+
+CREATE TABLE via_obtencion
+(
+	k_codigo INTEGER NOT NULL AUTO_INCREMENT,
+	n_nombre VARCHAR(30) NOT NULL,
+	PRIMARY KEY (k_codigo)
+) 
+;
+
+
+
+SET FOREIGN_KEY_CHECKS=1;
+
+
+--  Create Foreign Key Constraints 
+ALTER TABLE apoyo_prog_f ADD CONSTRAINT FK_apoyo_prog_f_categoria 
+	FOREIGN KEY (c_categoria) REFERENCES categoria (k_codigo)
+;
+
+ALTER TABLE apoyo_prog_f ADD CONSTRAINT FK_apoyo_prog_f_tipo_apoyo 
+	FOREIGN KEY (i_tipo_apoyo) REFERENCES tipo_apoyo (k_codigo)
+;
+
+ALTER TABLE apoyo_prog_f_autor ADD CONSTRAINT FK_apoyo_prog_f_autor_apoyo_prog_f 
+	FOREIGN KEY (i_cod_apoyo_prog_f) REFERENCES apoyo_prog_f (k_codigo)
+;
+
+ALTER TABLE apoyo_prog_f_autor ADD CONSTRAINT FK_apoyo_prog_f_autor_grupo_investigacion 
+	FOREIGN KEY (i_cod_grupo_investigacion) REFERENCES grupo_investigacion (k_codigo)
+;
+
+ALTER TABLE apoyo_prog_f_autor ADD CONSTRAINT FK_apoyo_prog_f_autor_investigador 
+	FOREIGN KEY (i_cod_investigador) REFERENCES investigador (k_codigo)
+;
+
+ALTER TABLE articulo ADD CONSTRAINT FK_articulo_categoria 
+	FOREIGN KEY (c_categoria) REFERENCES categoria (k_codigo)
+;
+
+ALTER TABLE articulo ADD CONSTRAINT FK_articulo_pais 
+	FOREIGN KEY (i_pais_publicacion) REFERENCES pais (k_codigo)
+;
+
+ALTER TABLE articulo ADD CONSTRAINT FK_articulo_revista 
+	FOREIGN KEY (i_ISSN_revista) REFERENCES revista (k_ISSN)
+;
+
+ALTER TABLE articulo_autor ADD CONSTRAINT FK_articulo_autor_articulo 
+	FOREIGN KEY (i_cod_articulo) REFERENCES articulo (k_codigo)
+;
+
+ALTER TABLE articulo_autor ADD CONSTRAINT FK_articulo_autor_grupo_investigacion 
+	FOREIGN KEY (i_cod_grupo_investigacion) REFERENCES grupo_investigacion (k_codigo)
+;
+
+ALTER TABLE articulo_autor ADD CONSTRAINT FK_articulo_autor_investigador 
+	FOREIGN KEY (i_cod_investigador) REFERENCES investigador (k_codigo)
+;
+
+ALTER TABLE BCI ADD CONSTRAINT FK_BCI_libro 
+	FOREIGN KEY (c_ISBN) REFERENCES libro (k_ISBN)
+;
+
+ALTER TABLE boletin ADD CONSTRAINT FK_boletin_categoria 
+	FOREIGN KEY (c_categoria) REFERENCES categoria (k_codigo)
+;
+
+ALTER TABLE boletin_autor ADD CONSTRAINT FK_boletin_autor_boletin 
+	FOREIGN KEY (i_cod_boletin) REFERENCES boletin (k_codigo)
+;
+
+ALTER TABLE boletin_autor ADD CONSTRAINT FK_boletin_autor_grupo_investigacion 
+	FOREIGN KEY (i_cod_grupo_investigacion) REFERENCES grupo_investigacion (k_codigo)
+;
+
+ALTER TABLE boletin_autor ADD CONSTRAINT FK_boletin_autor_investigador 
+	FOREIGN KEY (i_cod_investigador) REFERENCES investigador (k_codigo)
+;
+
+ALTER TABLE cap_libro_autor ADD CONSTRAINT FK_cap_libro_autor_cap_libro_investigacion 
+	FOREIGN KEY (i_cod_cap_libro) REFERENCES cap_libro_investigacion (k_codigo)
+;
+
+ALTER TABLE cap_libro_autor ADD CONSTRAINT FK_cap_libro_autor_grupo_investigacion 
+	FOREIGN KEY (i_cod_grupo_investigacion) REFERENCES grupo_investigacion (k_codigo)
+;
+
+ALTER TABLE cap_libro_autor ADD CONSTRAINT FK_cap_libro_autor_investigador 
+	FOREIGN KEY (i_cod_integrante) REFERENCES investigador (k_codigo)
+;
+
+ALTER TABLE cap_libro_investigacion ADD CONSTRAINT FK_cap_libro_investigacion_categoria 
+	FOREIGN KEY (c_categoria) REFERENCES categoria (k_codigo)
+;
+
+ALTER TABLE cap_libro_investigacion ADD CONSTRAINT FK_cap_libro_investigacion_libro 
+	FOREIGN KEY (c_ISBN_libro) REFERENCES libro (k_ISBN)
+;
+
+ALTER TABLE categoria ADD CONSTRAINT FK_categoria_area_conocimiento 
+	FOREIGN KEY (c_area_conocimiento) REFERENCES area_conocimiento (k_codigo)
+;
+
+ALTER TABLE citacion ADD CONSTRAINT FK_citacion_libro 
+	FOREIGN KEY (c_ISBN) REFERENCES libro (k_ISBN)
+;
+
+ALTER TABLE citacion ADD CONSTRAINT FK_citacion_libro_investigacion 
+	FOREIGN KEY (i_libro_investigacion) REFERENCES libro_investigacion (k_codigo)
+;
+
+ALTER TABLE citacion ADD CONSTRAINT FK_citacion_revista 
+	FOREIGN KEY (c_ISSN) REFERENCES revista (k_ISSN)
+;
+
+ALTER TABLE clasificacion_JCR ADD CONSTRAINT FK_clasificacion_JCR_categoriaJCR 
+	FOREIGN KEY (i_categoria) REFERENCES categoriaJCR (k_codigo)
+;
+
+ALTER TABLE clasificacion_JCR ADD CONSTRAINT FK_clasificacion_JCR_revista 
+	FOREIGN KEY (i_ISSN) REFERENCES revista (k_ISSN)
+;
+
+ALTER TABLE clasificacion_SJR ADD CONSTRAINT FK_clasificacion_SJR_categoriaSJR 
+	FOREIGN KEY (i_categoria) REFERENCES categoriaSJR (k_codigo)
+;
+
+ALTER TABLE clasificacion_SJR ADD CONSTRAINT FK_clasificacion_SJR_revista 
+	FOREIGN KEY (i_ISSN) REFERENCES revista (k_ISSN)
+;
+
+ALTER TABLE consultoria ADD CONSTRAINT FK_consultoria_categoria 
+	FOREIGN KEY (c_categoria) REFERENCES categoria (k_codigo)
+;
+
+ALTER TABLE consultoria_autor ADD CONSTRAINT FK_consultoria_autor_consultoria 
+	FOREIGN KEY (i_cod_consultoria) REFERENCES consultoria (k_codigo)
+;
+
+ALTER TABLE consultoria_autor ADD CONSTRAINT FK_consultoria_autor_grupo_investigacion 
+	FOREIGN KEY (i_cod_grupo_investigacion) REFERENCES grupo_investigacion (k_codigo)
+;
+
+ALTER TABLE consultoria_autor ADD CONSTRAINT FK_consultoria_autor_investigador 
+	FOREIGN KEY (i_cod_investigador) REFERENCES investigador (k_codigo)
+;
+
+ALTER TABLE diseno_industrial ADD CONSTRAINT FK_diseno_industrial_categoria 
+	FOREIGN KEY (c_categoria) REFERENCES categoria (k_codigo)
+;
+
+ALTER TABLE diseno_industrial ADD CONSTRAINT FK_diseno_industrial_pais 
+	FOREIGN KEY (i_pais_obtencion) REFERENCES pais (k_codigo)
+;
+
+ALTER TABLE diseno_industrial_titular ADD CONSTRAINT FK_diseno_industrial_titular_diseno_industrial 
+	FOREIGN KEY (i_cod_diseno_industrial) REFERENCES diseno_industrial (k_codigo)
+;
+
+ALTER TABLE diseno_industrial_titular ADD CONSTRAINT FK_diseno_industrial_titular_grupo_investigacion 
+	FOREIGN KEY (i_cod_grupo_investigacion) REFERENCES grupo_investigacion (k_codigo)
+;
+
+ALTER TABLE diseno_industrial_titular ADD CONSTRAINT FK_diseno_industrial_titular_investigador 
+	FOREIGN KEY (i_cod_investigador) REFERENCES investigador (k_codigo)
+;
+
+ALTER TABLE doc_trabajo ADD CONSTRAINT FK_doc_trabajo_categoria 
+	FOREIGN KEY (c_categoria) REFERENCES categoria (k_codigo)
+;
+
+ALTER TABLE doc_trabajo_autor ADD CONSTRAINT FK_doc_trabajo_autor_doc_trabajo 
+	FOREIGN KEY (i_cod_doc_trabajo) REFERENCES doc_trabajo (k_codigo)
+;
+
+ALTER TABLE doc_trabajo_autor ADD CONSTRAINT FK_doc_trabajo_autor_grupo_investigacion 
+	FOREIGN KEY (i_cod_grupo_investigacion) REFERENCES grupo_investigacion (k_codigo)
+;
+
+ALTER TABLE doc_trabajo_autor ADD CONSTRAINT FK_doc_trabajo_autor_investigador 
+	FOREIGN KEY (i_cod_investigador) REFERENCES investigador (k_codigo)
+;
+
+ALTER TABLE doc_trabajo_entidad ADD CONSTRAINT FK_doc_trabajo_entidad_doc_trabajo 
+	FOREIGN KEY (i_cod_doc_trabajo) REFERENCES doc_trabajo (k_codigo)
+;
+
+ALTER TABLE doc_trabajo_entidad ADD CONSTRAINT FK_doc_trabajo_entidad_entidad 
+	FOREIGN KEY (i_cod_entidad) REFERENCES entidad (k_codigo)
+;
+
+ALTER TABLE edicion ADD CONSTRAINT FK_edicion_grupo_investigacion 
+	FOREIGN KEY (i_cod_grupo_investigacion) REFERENCES grupo_investigacion (k_codigo)
+;
+
+ALTER TABLE edicion ADD CONSTRAINT FK_edicion_libro_categoria 
+	FOREIGN KEY (c_categoria) REFERENCES categoria (k_codigo)
+;
+
+ALTER TABLE edicion ADD CONSTRAINT FK_edicion_libro_investigador 
+	FOREIGN KEY (i_editor) REFERENCES investigador (k_codigo)
+;
+
+ALTER TABLE emp_base_tec ADD CONSTRAINT FK_emp_base_tec_categoria 
+	FOREIGN KEY (c_categoria) REFERENCES categoria (k_codigo)
+;
+
+ALTER TABLE emp_base_tec ADD CONSTRAINT FK_emp_base_tec_tipo_empresa 
+	FOREIGN KEY (i_tipo_empresa) REFERENCES tipo_empresa (k_codigo)
+;
+
+ALTER TABLE emp_base_tec ADD CONSTRAINT FK_emp_base_tec_tipo_identificacion_empresa 
+	FOREIGN KEY (i_tipo_identificacion) REFERENCES tipo_identificacion_empresa (k_codigo)
+;
+
+ALTER TABLE emp_base_tec_autor ADD CONSTRAINT FK_emp_base_tec_autor_emp_base_tec 
+	FOREIGN KEY (i_cod_emp_base_tec) REFERENCES emp_base_tec (k_codigo)
+;
+
+ALTER TABLE emp_base_tec_autor ADD CONSTRAINT FK_emp_base_tec_autor_grupo_investigacion 
+	FOREIGN KEY (i_cod_grupo_investigacion) REFERENCES grupo_investigacion (k_codigo)
+;
+
+ALTER TABLE emp_base_tec_autor ADD CONSTRAINT FK_emp_base_tec_autor_investigador 
+	FOREIGN KEY (i_cod_investigador) REFERENCES investigador (k_codigo)
+;
+
+ALTER TABLE espacio_part_proyecto_CTI ADD CONSTRAINT FK_espacio_part_proyecto_CTI_categoria 
+	FOREIGN KEY (c_categoria) REFERENCES categoria (k_codigo)
+;
+
+ALTER TABLE espacio_part_proyecto_CTI_autor ADD CONSTRAINT FK_espacio_part_proyecto_CTI_autor_espacio_part_proyecto_CTI 
+	FOREIGN KEY (i_cod_espacio_part_proyecto_CTI) REFERENCES espacio_part_proyecto_CTI (k_codigo)
+;
+
+ALTER TABLE espacio_part_proyecto_CTI_autor ADD CONSTRAINT FK_espacio_part_proyecto_CTI_autor_grupo_investigacion 
+	FOREIGN KEY (i_cod_grupo_investigacion) REFERENCES grupo_investigacion (k_codigo)
+;
+
+ALTER TABLE espacio_part_proyecto_CTI_autor ADD CONSTRAINT FK_espacio_part_proyecto_CTI_autor_investigador 
+	FOREIGN KEY (i_cod_investigador) REFERENCES investigador (k_codigo)
+;
+
+ALTER TABLE espacio_part_proyecto_CTI_entidad ADD CONSTRAINT FK_espacio_part_proyecto_CTI_entidad_entidad 
+	FOREIGN KEY (i_cod_entidad) REFERENCES entidad (k_codigo)
+;
+
+ALTER TABLE espacio_part_proyecto_CTI_entidad ADD CONSTRAINT FK_espacio_part_proyecto_CTI_entidad_espacio_part_proyecto_CTI 
+	FOREIGN KEY (i_cod_proy_participacion) REFERENCES espacio_part_proyecto_CTI (k_codigo)
+;
+
+ALTER TABLE esq_circuito ADD CONSTRAINT FK_esq_circuito_categoria 
+	FOREIGN KEY (c_categoria) REFERENCES categoria (k_codigo)
+;
+
+ALTER TABLE esq_circuito ADD CONSTRAINT FK_esq_circuito_pais 
+	FOREIGN KEY (i_pais_obtencion) REFERENCES pais (k_codigo)
+;
+
+ALTER TABLE esq_circuito_titular ADD CONSTRAINT FK_esq_circuito_titular_esq_circuito 
+	FOREIGN KEY (i_cod_esq_circuito) REFERENCES esq_circuito (k_codigo)
+;
+
+ALTER TABLE esq_circuito_titular ADD CONSTRAINT FK_esq_circuito_titular_grupo_investigacion 
+	FOREIGN KEY (i_cod_grupo_investigacion) REFERENCES grupo_investigacion (k_codigo)
+;
+
+ALTER TABLE esq_circuito_titular ADD CONSTRAINT FK_esq_circuito_titular_investigador 
+	FOREIGN KEY (i_cod_investigador) REFERENCES investigador (k_codigo)
+;
+
+ALTER TABLE est_comunicacion_conocimiento ADD CONSTRAINT FK_est_comunicacion_conocimiento_categoria 
+	FOREIGN KEY (c_categoria) REFERENCES categoria (k_codigo)
+;
+
+ALTER TABLE est_comunicacion_conocimiento_entidad ADD CONSTRAINT FK_est_comunicacion_conocimiento_entidad 
+	FOREIGN KEY (k_cod_entidad) REFERENCES entidad (k_codigo)
+;
+
+ALTER TABLE est_comunicacion_conocimiento_entidad ADD CONSTRAINT FK_est_comunicacion_conocimiento_est_comunicacion_conocimiento 
+	FOREIGN KEY (k_cod_est_comunicacion) REFERENCES est_comunicacion_conocimiento (k_codigo)
+;
+
+ALTER TABLE est_comunicacion_conocimiento_investigador ADD CONSTRAINT FK_est_comunicacion_conocimiento_investigador_est_com 
+	FOREIGN KEY (i_cod_est_comunicacion_conocimiento) REFERENCES est_comunicacion_conocimiento (k_codigo)
+;
+
+ALTER TABLE est_comunicacion_conocimiento_investigador ADD CONSTRAINT FK_est_comunicacion_conocimiento_investigador_investigador 
+	FOREIGN KEY (i_cod_investigador) REFERENCES investigador (k_codigo)
+;
+
+ALTER TABLE est_fomento_CTI ADD CONSTRAINT FK_est_fomento_CTI_grupo_investigacion 
+	FOREIGN KEY (i_cod_grupo_investigacion) REFERENCES grupo_investigacion (k_codigo)
+;
+
+ALTER TABLE est_fomento_CTI ADD CONSTRAINT FK_est_fomento_CTI_investigador 
+	FOREIGN KEY (i_investigador_principal) REFERENCES investigador (k_codigo)
+;
+
+ALTER TABLE est_fomento_CTI_entidad ADD CONSTRAINT FK_est_fomento_CTI_entidad_entidad 
+	FOREIGN KEY (i_cod_entidad) REFERENCES entidad (k_codigo)
+;
+
+ALTER TABLE est_fomento_CTI_entidad ADD CONSTRAINT FK_est_fomento_CTI_entidad_est_fomento_CTI 
+	FOREIGN KEY (i_cod_est_fomento_) REFERENCES est_fomento_CTI (k_codigo)
+;
+
+ALTER TABLE evento_cientifico_entidad ADD CONSTRAINT FK_evento_cientifico_entidad_entidad 
+	FOREIGN KEY (k_cod_entidad) REFERENCES entidad (k_codigo)
+;
+
+ALTER TABLE evento_cientifico_entidad ADD CONSTRAINT FK_evento_cientifico_entidad_evento_cientifico 
+	FOREIGN KEY (k_cod_evento_cientifico) REFERENCES evento_cientifico (k_codigo)
+;
+
+ALTER TABLE evento_cientifico_investigador ADD CONSTRAINT FK_evento_cientifico_investigador_evento_cientifico 
+	FOREIGN KEY (i_cod_evento_cientifico) REFERENCES evento_cientifico (k_codigo)
+;
+
+ALTER TABLE evento_cientifico_investigador ADD CONSTRAINT FK_evento_cientifico_investigador_grupo_investigacion 
+	FOREIGN KEY (i_cod_grupo_investigacion) REFERENCES grupo_investigacion (k_codigo)
+;
+
+ALTER TABLE evento_cientifico_investigador ADD CONSTRAINT FK_evento_cientifico_investigador_investigador 
+	FOREIGN KEY (i_cod_investigador) REFERENCES investigador (k_codigo)
+;
+
+ALTER TABLE evento_cientifico_investigador ADD CONSTRAINT FK_evento_cientifico_investigador_tipo_participacion_evento 
+	FOREIGN KEY (i_tipo_participacion) REFERENCES tipo_participacion_evento (k_codigo)
+;
+
+ALTER TABLE gen_cont_impreso ADD CONSTRAINT FK_gen_cont_impreso_categoria 
+	FOREIGN KEY (c_categoria) REFERENCES categoria (k_codigo)
+;
+
+ALTER TABLE gen_cont_impreso ADD CONSTRAINT FK_gen_cont_impreso_pais 
+	FOREIGN KEY (i_lugar_publicacion) REFERENCES pais (k_codigo)
+;
+
+ALTER TABLE gen_cont_multimedia ADD CONSTRAINT FK_gen_cont_multimedia_categoria 
+	FOREIGN KEY (c_categoria) REFERENCES categoria (k_codigo)
+;
+
+ALTER TABLE gen_cont_multimedia_entidad ADD CONSTRAINT FK_gen_cont_multimedia_entidad_entidad 
+	FOREIGN KEY (i_cod_entidad) REFERENCES entidad (k_codigo)
+;
+
+ALTER TABLE gen_cont_multimedia_entidad ADD CONSTRAINT FK_gen_cont_multimedia_entidad_gen_cont_multimedia 
+	FOREIGN KEY (i_cod_gen_cont_multimedia) REFERENCES gen_cont_multimedia (k_codigo)
+;
+
+ALTER TABLE gen_cont_multimedia_participante ADD CONSTRAINT FK_gen_cont_multimedia_participante_gen_cont_multimedia 
+	FOREIGN KEY (i_cod_gen_cont_multimedia) REFERENCES gen_cont_multimedia (k_codigo)
+;
+
+ALTER TABLE gen_cont_multimedia_participante ADD CONSTRAINT FK_gen_cont_multimedia_participante_gen_cont_participacion 
+	FOREIGN KEY (i_tipo_participacion) REFERENCES gen_cont_participacion (k_codigo)
+;
+
+ALTER TABLE gen_cont_multimedia_participante ADD CONSTRAINT FK_gen_cont_multimedia_participante_grupo_investigacion 
+	FOREIGN KEY (i_cod_grupo_investigacion) REFERENCES grupo_investigacion (k_codigo)
+;
+
+ALTER TABLE gen_cont_multimedia_participante ADD CONSTRAINT FK_gen_cont_multimedia_participante_investigador 
+	FOREIGN KEY (i_cod_investigador) REFERENCES investigador (k_codigo)
+;
+
+ALTER TABLE gen_cont_virtual_autor ADD CONSTRAINT FK_gen_cont_virtual_autor_gen_cont_virtual 
+	FOREIGN KEY (i_cod_gen_cont_virtual) REFERENCES gen_cont_virtual (k_codigo)
+;
+
+ALTER TABLE gen_cont_virtual_autor ADD CONSTRAINT FK_gen_cont_virtual_autor_grupo_investigacion 
+	FOREIGN KEY (i_cod_grupo_investigacion) REFERENCES grupo_investigacion (k_codigo)
+;
+
+ALTER TABLE gen_cont_virtual_autor ADD CONSTRAINT FK_gen_cont_virtual_autor_investigador 
+	FOREIGN KEY (i_cod_investigador) REFERENCES investigador (k_codigo)
+;
+
+ALTER TABLE gen_cont_virtual_entidad ADD CONSTRAINT FK_gen_cont_virtual_entidad_entidad 
+	FOREIGN KEY (i_cod_entidad) REFERENCES entidad (k_codigo)
+;
+
+ALTER TABLE gen_cont_virtual_entidad ADD CONSTRAINT FK_gen_cont_virtual_entidad_gen_cont_virtual 
+	FOREIGN KEY (i_cod_gen_cont_virtual) REFERENCES gen_cont_virtual (k_codigo)
+;
+
+ALTER TABLE gen_contenido_autor ADD CONSTRAINT FK_gen_contenido_autor_gen_cont_impreso 
+	FOREIGN KEY (i_cod_gen_contenido) REFERENCES gen_cont_impreso (k_codigo)
+;
+
+ALTER TABLE gen_contenido_autor ADD CONSTRAINT FK_gen_contenido_autor_grupo_investigacion 
+	FOREIGN KEY (i_cod_grupo_investigacion) REFERENCES grupo_investigacion (k_codigo)
+;
+
+ALTER TABLE informe_final ADD CONSTRAINT FK_informe_final_categoria 
+	FOREIGN KEY (c_categoria) REFERENCES categoria (k_codigo)
+;
+
+ALTER TABLE informe_final_autor ADD CONSTRAINT FK_informe_final_autor_grupo_investigacion 
+	FOREIGN KEY (i_cod_grupo_investigacion) REFERENCES grupo_investigacion (k_codigo)
+;
+
+ALTER TABLE informe_final_autor ADD CONSTRAINT FK_informe_final_autor_informe_final 
+	FOREIGN KEY (i_cod_informe_final) REFERENCES informe_final (k_codigo)
+;
+
+ALTER TABLE informe_final_autor ADD CONSTRAINT FK_informe_final_autor_investigador 
+	FOREIGN KEY (i_cod_investigador) REFERENCES investigador (k_codigo)
+;
+
+ALTER TABLE informe_tec ADD CONSTRAINT FK_informe_tec_categoria 
+	FOREIGN KEY (c_categoria) REFERENCES categoria (k_codigo)
+;
+
+ALTER TABLE informe_tec_autor ADD CONSTRAINT FK_informe_tec_autor_grupo_investigacion 
+	FOREIGN KEY (i_cod_grupo_investigacion) REFERENCES grupo_investigacion (k_codigo)
+;
+
+ALTER TABLE informe_tec_autor ADD CONSTRAINT FK_informe_tec_autor_informe_tec 
+	FOREIGN KEY (i_cod_informe) REFERENCES informe_tec (k_codigo)
+;
+
+ALTER TABLE informe_tec_autor ADD CONSTRAINT FK_informe_tec_autor_investigador 
+	FOREIGN KEY (i_cod_investigador) REFERENCES investigador (k_codigo)
+;
+
+ALTER TABLE innovacion_ps ADD CONSTRAINT FK_innovacion_ps_categoria 
+	FOREIGN KEY (c_categoria) REFERENCES categoria (k_codigo)
+;
+
+ALTER TABLE innovacion_ps_autor ADD CONSTRAINT FK_innovacion_ps_autor_grupo_investigacion 
+	FOREIGN KEY (i_cod_grupo_investigacion) REFERENCES grupo_investigacion (k_codigo)
+;
+
+ALTER TABLE innovacion_ps_autor ADD CONSTRAINT FK_innovacion_ps_autor_innovacion_ps 
+	FOREIGN KEY (i_cod_innovacion_ps) REFERENCES innovacion_ps (k_codigo)
+;
+
+ALTER TABLE innovacion_ps_autor ADD CONSTRAINT FK_innovacion_ps_autor_investigador 
+	FOREIGN KEY (i_cod_investigador) REFERENCES investigador (k_codigo)
+;
+
+ALTER TABLE integrante_grupo ADD CONSTRAINT FK_integrante_grupo_grupo_investigacion 
+	FOREIGN KEY (i_cod_grupo_investigacion) REFERENCES grupo_investigacion (k_codigo)
+;
+
+ALTER TABLE integrante_grupo ADD CONSTRAINT FK_integrante_grupo_investigador 
+	FOREIGN KEY (i_cod_investigador) REFERENCES investigador (k_codigo)
+;
+
+ALTER TABLE investigador ADD CONSTRAINT FK_investigador_categoria_investigador 
+	FOREIGN KEY (c_categoria) REFERENCES categoria_investigador (k_codigo)
+;
+
+ALTER TABLE libro ADD CONSTRAINT FK_libro_editorial 
+	FOREIGN KEY (i_editorial) REFERENCES editorial (k_codigo)
+;
+
+ALTER TABLE libro ADD CONSTRAINT FK_libro_pais 
+	FOREIGN KEY (i_pais_publicacion) REFERENCES pais (k_codigo)
+;
+
+ALTER TABLE libro_autor ADD CONSTRAINT FK_libro_autor_grupo_investigacion 
+	FOREIGN KEY (i_cod_grupo_investigacion) REFERENCES grupo_investigacion (k_codigo)
+;
+
+ALTER TABLE libro_autor ADD CONSTRAINT FK_libro_autor_investigador 
+	FOREIGN KEY (i_cod_investigador) REFERENCES investigador (k_codigo)
+;
+
+ALTER TABLE libro_autor ADD CONSTRAINT FK_libro_autor_libro_investigacion 
+	FOREIGN KEY (i_cod_libro) REFERENCES libro_investigacion (k_codigo)
+;
+
+ALTER TABLE libro_investigacion ADD CONSTRAINT FK_libro_investigacion_categoria 
+	FOREIGN KEY (c_categoria) REFERENCES categoria (k_codigo)
+;
+
+ALTER TABLE libro_investigacion ADD CONSTRAINT FK_libro_investigacion_libro 
+	FOREIGN KEY (c_ISBN_libro) REFERENCES libro (k_ISBN)
+;
+
+ALTER TABLE municipio ADD CONSTRAINT FK_municipio_departamento 
+	FOREIGN KEY (i_departamento) REFERENCES departamento (k_codigo)
+;
+
+ALTER TABLE part_ciud_proyecto_CTI ADD CONSTRAINT FK_part_ciud_proyecto_CTI_categoria 
+	FOREIGN KEY (c_categoria) REFERENCES categoria (k_codigo)
+;
+
+ALTER TABLE part_ciud_proyecto_CTI ADD CONSTRAINT FK_part_ciud_proyecto_CTI_grupo_investigacion 
+	FOREIGN KEY (i_cod_grupo_investigacion) REFERENCES grupo_investigacion (k_codigo)
+;
+
+ALTER TABLE part_ciud_proyecto_CTI ADD CONSTRAINT FK_part_ciud_proyecto_CTI_investigador 
+	FOREIGN KEY (i_investigador_principal) REFERENCES investigador (k_codigo)
+;
+
+ALTER TABLE part_proy_CTI_entidad ADD CONSTRAINT FK_part_proy_CTI_entidad_entidad 
+	FOREIGN KEY (i_cod_entidad) REFERENCES entidad (k_codigo)
+;
+
+ALTER TABLE part_proy_CTI_entidad ADD CONSTRAINT FK_part_proy_CTI_entidad_part_ciud_proyecto_CTI 
+	FOREIGN KEY (i_cod_part_proyecto_CTI) REFERENCES part_ciud_proyecto_CTI (k_codigo)
+;
+
+ALTER TABLE patente ADD CONSTRAINT FK_patente_categoria 
+	FOREIGN KEY (c_categoria) REFERENCES categoria (k_codigo)
+;
+
+ALTER TABLE patente ADD CONSTRAINT FK_patente_via_obtencion 
+	FOREIGN KEY (i_via_obtencion) REFERENCES via_obtencion (k_codigo)
+;
+
+ALTER TABLE patente_contrato ADD CONSTRAINT FK_patente_contrato_patente 
+	FOREIGN KEY (i_codigo_patente) REFERENCES patente (k_codigo)
+;
+
+ALTER TABLE patente_pais ADD CONSTRAINT FK_patente_pais_pais 
+	FOREIGN KEY (i_cod_pais) REFERENCES pais (k_codigo)
+;
+
+ALTER TABLE patente_pais ADD CONSTRAINT FK_patente_pais_patente 
+	FOREIGN KEY (i_cod_patente) REFERENCES patente (k_codigo)
+;
+
+ALTER TABLE patente_titular ADD CONSTRAINT FK_patente_titular_grupo_investigacion 
+	FOREIGN KEY (i_cod_grupo_investigacion) REFERENCES grupo_investigacion (k_codigo)
+;
+
+ALTER TABLE patente_titular ADD CONSTRAINT FK_patente_titular_investigador 
+	FOREIGN KEY (i_cod_investigador) REFERENCES investigador (k_codigo)
+;
+
+ALTER TABLE patente_titular ADD CONSTRAINT FK_patente_titular_patente 
+	FOREIGN KEY (i_cod_patente) REFERENCES patente (k_codigo)
+;
+
+ALTER TABLE planta_piloto ADD CONSTRAINT FK_planta_piloto_categoria 
+	FOREIGN KEY (c_categoria) REFERENCES categoria (k_codigo)
+;
+
+ALTER TABLE planta_piloto ADD CONSTRAINT FK_planta_piloto_entidad 
+	FOREIGN KEY (i_institucion_financiadora) REFERENCES entidad (k_codigo)
+;
+
+ALTER TABLE planta_piloto ADD CONSTRAINT FK_planta_piloto_pais 
+	FOREIGN KEY (i_pais_elaboracion) REFERENCES pais (k_codigo)
+;
+
+ALTER TABLE planta_piloto_autor ADD CONSTRAINT FK_planta_piloto_autor_grupo_investigacion 
+	FOREIGN KEY (i_cod_grupo_investigacion) REFERENCES grupo_investigacion (k_codigo)
+;
+
+ALTER TABLE planta_piloto_autor ADD CONSTRAINT FK_planta_piloto_autor_investigador 
+	FOREIGN KEY (i_cod_investigador) REFERENCES investigador (k_codigo)
+;
+
+ALTER TABLE planta_piloto_autor ADD CONSTRAINT FK_planta_piloto_autor_planta_piloto 
+	FOREIGN KEY (i_cod_planta_piloto) REFERENCES planta_piloto (k_codigo)
+;
+
+ALTER TABLE programa_ondas ADD CONSTRAINT FK_programa_ondas_categoria 
+	FOREIGN KEY (c_categoria) REFERENCES categoria (k_codigo)
+;
+
+ALTER TABLE programa_ondas ADD CONSTRAINT FK_programa_ondas_departamento 
+	FOREIGN KEY (i_departamento) REFERENCES departamento (k_codigo)
+;
+
+ALTER TABLE programa_ondas ADD CONSTRAINT FK_programa_ondas_municipio 
+	FOREIGN KEY (i_municipio) REFERENCES municipio (k_codigo)
+;
+
+ALTER TABLE programa_ondas_autor ADD CONSTRAINT FK_programa_ondas_autor_grupo_investigacion 
+	FOREIGN KEY (i_cod_grupo_investigacion) REFERENCES grupo_investigacion (k_codigo)
+;
+
+ALTER TABLE programa_ondas_autor ADD CONSTRAINT FK_programa_ondas_autor_investigador 
+	FOREIGN KEY (i_cod_investigador) REFERENCES investigador (k_codigo)
+;
+
+ALTER TABLE programa_ondas_autor ADD CONSTRAINT FK_programa_ondas_autor_programa_ondas 
+	FOREIGN KEY (i_cod_programa_ondas) REFERENCES programa_ondas (k_codigo)
+;
+
+ALTER TABLE prototipo_ind ADD CONSTRAINT FK_prototipo_ind_categoria 
+	FOREIGN KEY (c_categoria) REFERENCES categoria (k_codigo)
+;
+
+ALTER TABLE prototipo_ind ADD CONSTRAINT FK_prototipo_ind_entidad 
+	FOREIGN KEY (i_institucion_financiadora) REFERENCES entidad (k_codigo)
+;
+
+ALTER TABLE prototipo_ind ADD CONSTRAINT FK_prototipo_ind_pais 
+	FOREIGN KEY (i_pais_obtencion) REFERENCES pais (k_codigo)
+;
+
+ALTER TABLE prototipo_ind_autor ADD CONSTRAINT FK_prototipo_ind_autor_grupo_investigacion 
+	FOREIGN KEY (i_cod_grupo_investigacion) REFERENCES grupo_investigacion (k_codigo)
+;
+
+ALTER TABLE prototipo_ind_autor ADD CONSTRAINT FK_prototipo_ind_autor_investigador 
+	FOREIGN KEY (i_cod_investigador) REFERENCES investigador (k_codigo)
+;
+
+ALTER TABLE prototipo_ind_autor ADD CONSTRAINT FK_prototipo_ind_autor_prototipo_ind 
+	FOREIGN KEY (i_cod_prototipo_ind) REFERENCES prototipo_ind (k_codigo)
+;
+
+ALTER TABLE proyecto ADD CONSTRAINT FK_proyecto_categoria 
+	FOREIGN KEY (c_categoria) REFERENCES categoria (k_codigo)
+;
+
+ALTER TABLE proyecto ADD CONSTRAINT FK_proyecto_financiacion_proyecto 
+	FOREIGN KEY (i_financiacion) REFERENCES financiacion_proyecto (k_codigo)
+;
+
+ALTER TABLE proyecto ADD CONSTRAINT FK_proyecto_tipo_proyecto 
+	FOREIGN KEY (i_tipo_proyecto) REFERENCES tipo_proyecto (k_codigo)
+;
+
+ALTER TABLE proyecto_ext_CTI ADD CONSTRAINT FK_proyecto_ext_CTI_categoria 
+	FOREIGN KEY (c_categoria) REFERENCES categoria (k_codigo)
+;
+
+ALTER TABLE proyecto_ext_CTI_entidad ADD CONSTRAINT FK_proyecto_ext_CTI_entidad_entidad 
+	FOREIGN KEY (i_cod_entidad) REFERENCES entidad (k_codigo)
+;
+
+ALTER TABLE proyecto_ext_CTI_entidad ADD CONSTRAINT FK_proyecto_ext_CTI_entidad_proyecto_ext_CTI 
+	FOREIGN KEY (i_cod_proyecto_ext_CTI) REFERENCES proyecto_ext_CTI (k_codigo)
+;
+
+ALTER TABLE proyecto_ext_CTI_investigador ADD CONSTRAINT FK_proyecto_ext_CTI_investigador_investigador 
+	FOREIGN KEY (i_cod_investigador) REFERENCES investigador (k_codigo)
+;
+
+ALTER TABLE proyecto_ext_CTI_investigador ADD CONSTRAINT FK_proyecto_ext_CTI_investigador_proyecto_ext_CTI 
+	FOREIGN KEY (i_cod_proyecto_ext) REFERENCES proyecto_ext_CTI (k_codigo)
+;
+
+ALTER TABLE proyecto_investigador ADD CONSTRAINT FK_proyecto_investigador_grupo_investigacion 
+	FOREIGN KEY (i_cod_grupo_investigacion) REFERENCES grupo_investigacion (k_codigo)
+;
+
+ALTER TABLE proyecto_investigador ADD CONSTRAINT FK_proyecto_investigador_investigador 
+	FOREIGN KEY (i_cod_investigador) REFERENCES investigador (k_codigo)
+;
+
+ALTER TABLE proyecto_investigador ADD CONSTRAINT FK_proyecto_investigador_proyecto 
+	FOREIGN KEY (i_cod_proyecto) REFERENCES proyecto (k_codigo)
+;
+
+ALTER TABLE red_conocimiento ADD CONSTRAINT FK_red_conocimiento_categoria 
+	FOREIGN KEY (c_categoria) REFERENCES categoria (k_codigo)
+;
+
+ALTER TABLE red_conocimiento ADD CONSTRAINT FK_red_conocimiento_grupo_investigacion 
+	FOREIGN KEY (i_cod_grupo_investigacion) REFERENCES grupo_investigacion (k_codigo)
+;
+
+ALTER TABLE red_conocimiento ADD CONSTRAINT FK_red_conocimiento_investigador 
+	FOREIGN KEY (i_investigador_principal) REFERENCES investigador (k_codigo)
+;
+
+ALTER TABLE red_conocimiento_entidad ADD CONSTRAINT FK_red_conocimiento_entidad_red_conocimiento 
+	FOREIGN KEY (i_cod_red_conocimiento) REFERENCES red_conocimiento (k_codigo)
+;
+
+ALTER TABLE secreto_emp ADD CONSTRAINT FK_secreto_emp_categoria 
+	FOREIGN KEY (c_categoria) REFERENCES categoria (k_codigo)
+;
+
+ALTER TABLE secreto_emp_autor ADD CONSTRAINT FK_secreto_emp_autor_grupo_investigacion 
+	FOREIGN KEY (i_cod_grupo_investigacion) REFERENCES grupo_investigacion (k_codigo)
+;
+
+ALTER TABLE secreto_emp_autor ADD CONSTRAINT FK_secreto_emp_autor_investigador 
+	FOREIGN KEY (i_cod_investigador) REFERENCES investigador (k_codigo)
+;
+
+ALTER TABLE secreto_emp_autor ADD CONSTRAINT FK_secreto_emp_autor_secreto_emp 
+	FOREIGN KEY (i_cod_secreto_emp) REFERENCES secreto_emp (k_codigo)
+;
+
+ALTER TABLE signos_dis ADD CONSTRAINT FK_signos_dis_categoria 
+	FOREIGN KEY (c_categoria) REFERENCES categoria (k_codigo)
+;
+
+ALTER TABLE signos_dis ADD CONSTRAINT FK_signos_dis_pais 
+	FOREIGN KEY (i_pais_obtencion) REFERENCES pais (k_codigo)
+;
+
+ALTER TABLE signos_dis_titular ADD CONSTRAINT FK_signos_dis_titular_grupo_investigacion 
+	FOREIGN KEY (i_cod_grupo_investigacion) REFERENCES grupo_investigacion (k_codigo)
+;
+
+ALTER TABLE signos_dis_titular ADD CONSTRAINT FK_signos_dis_titular_investigador 
+	FOREIGN KEY (i_cod_investigador) REFERENCES investigador (k_codigo)
+;
+
+ALTER TABLE signos_dis_titular ADD CONSTRAINT FK_signos_dis_titular_signos_dis 
+	FOREIGN KEY (i_cod_signos_dis) REFERENCES signos_dis (k_codigo)
+;
+
+ALTER TABLE software ADD CONSTRAINT FK_software_categoria 
+	FOREIGN KEY (c_categoria) REFERENCES categoria (k_codigo)
+;
+
+ALTER TABLE software_autor ADD CONSTRAINT FK_software_autor_grupo_investigacion 
+	FOREIGN KEY (i_cod_grupo_investigacion) REFERENCES grupo_investigacion (k_codigo)
+;
+
+ALTER TABLE software_autor ADD CONSTRAINT FK_software_autor_investigador 
+	FOREIGN KEY (i_cod_investigador) REFERENCES investigador (k_codigo)
+;
+
+ALTER TABLE software_autor ADD CONSTRAINT FK_software_autor_software 
+	FOREIGN KEY (i_cod_software) REFERENCES software (k_codigo)
+;
+
+ALTER TABLE trabajo_grado ADD CONSTRAINT FK_trabajo_grado_categoria 
+	FOREIGN KEY (c_categoria) REFERENCES categoria (k_codigo)
+;
+
+ALTER TABLE trabajo_grado ADD CONSTRAINT FK_trabajo_grado_distincion_trabajo_grado 
+	FOREIGN KEY (i_distincion) REFERENCES distincion_trabajo_grado (k_codigo)
+;
+
+ALTER TABLE trabajo_grado ADD CONSTRAINT FK_trabajo_grado_tipo_trabajo 
+	FOREIGN KEY (i_tipo_trabajo) REFERENCES tipo_trabajo (k_codigo)
+;
+
+ALTER TABLE trabajo_grado_director ADD CONSTRAINT FK_trabajo_grado_director_grupo_investigacion 
+	FOREIGN KEY (i_cod_grupo_investigacion) REFERENCES grupo_investigacion (k_codigo)
+;
+
+ALTER TABLE trabajo_grado_director ADD CONSTRAINT FK_trabajo_grado_director_investigador 
+	FOREIGN KEY (i_cod_investigador) REFERENCES investigador (k_codigo)
+;
+
+ALTER TABLE trabajo_grado_director ADD CONSTRAINT FK_trabajo_grado_director_trabajo_grado 
+	FOREIGN KEY (i_cod_trabajo_grado) REFERENCES trabajo_grado (k_codigo)
+;
