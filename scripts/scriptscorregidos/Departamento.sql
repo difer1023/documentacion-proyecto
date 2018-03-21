@@ -1,0 +1,36 @@
+USE ic2;
+
+INSERT INTO departamento (k_codigo,n_nombre) VALUES (05, 'ANTIOQUIA');
+INSERT INTO departamento (k_codigo,n_nombre) VALUES (08, 'ATLANTICO');
+INSERT INTO departamento (k_codigo,n_nombre) VALUES (11, 'BOGOTA');
+INSERT INTO departamento (k_codigo,n_nombre) VALUES (13, 'BOLIVAR');
+INSERT INTO departamento (k_codigo,n_nombre) VALUES (15, 'BOYACA');
+INSERT INTO departamento (k_codigo,n_nombre) VALUES (17, 'CALDAS');
+INSERT INTO departamento (k_codigo,n_nombre) VALUES (18, 'CAQUETA');
+INSERT INTO departamento (k_codigo,n_nombre) VALUES (19, 'CAUCA');
+INSERT INTO departamento (k_codigo,n_nombre) VALUES (20, 'CESAR');
+INSERT INTO departamento (k_codigo,n_nombre) VALUES (23, 'CORDOBA');
+INSERT INTO departamento (k_codigo,n_nombre) VALUES (25, 'CUNDINAMARCA');
+INSERT INTO departamento (k_codigo,n_nombre) VALUES (27, 'CHOCO');
+INSERT INTO departamento (k_codigo,n_nombre) VALUES (41, 'HUILA');
+INSERT INTO departamento (k_codigo,n_nombre) VALUES (44, 'LA GUAJIRA');
+INSERT INTO departamento (k_codigo,n_nombre) VALUES (47, 'MAGDALENA');
+INSERT INTO departamento (k_codigo,n_nombre) VALUES (50, 'META');
+INSERT INTO departamento (k_codigo,n_nombre) VALUES (52, 'NARIÑO');
+INSERT INTO departamento (k_codigo,n_nombre) VALUES (54, 'N. DE SANTANDER');
+INSERT INTO departamento (k_codigo,n_nombre) VALUES (63, 'QUINDIO');
+INSERT INTO departamento (k_codigo,n_nombre) VALUES (66, 'RISARALDA');
+INSERT INTO departamento (k_codigo,n_nombre) VALUES (68, 'SANTANDER');
+INSERT INTO departamento (k_codigo,n_nombre) VALUES (70, 'SUCRE');
+INSERT INTO departamento (k_codigo,n_nombre) VALUES (73, 'TOLIMA');
+INSERT INTO departamento (k_codigo,n_nombre) VALUES (76, 'VALLE DEL CAUCA');
+INSERT INTO departamento (k_codigo,n_nombre) VALUES (81, 'ARAUCA');
+INSERT INTO departamento (k_codigo,n_nombre) VALUES (85, 'CASANARE');
+INSERT INTO departamento (k_codigo,n_nombre) VALUES (86, 'PUTUMAYO');
+INSERT INTO departamento (k_codigo,n_nombre) VALUES (88, 'SAN ANDRES');
+INSERT INTO departamento (k_codigo,n_nombre) VALUES (91, 'AMAZONAS');
+INSERT INTO departamento (k_codigo,n_nombre) VALUES (94, 'GUAINIA');
+INSERT INTO departamento (k_codigo,n_nombre) VALUES (95, 'GUAVIARE');
+INSERT INTO departamento (k_codigo,n_nombre) VALUES (97, 'VAUPES');
+INSERT INTO departamento (k_codigo,n_nombre) VALUES (99, 'VICHADA');
+
