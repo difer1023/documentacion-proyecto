@@ -1,5 +1,6 @@
 USE ic2;
 
-INSERT INTO tipo_trabajo (k_codigo,n_nombre) values (1,'Tesis doctorado');
-INSERT INTO tipo_trabajo (k_codigo,n_nombre) values (2,'Tesis maestría');
-INSERT INTO tipo_trabajo (k_codigo,n_nombre) values (3,'Trabajo de grado pregrado');
+INSERT INTO tipo_trabajo (`n_nombre`) VALUES ('Trabajos de grado de pregrado');
+INSERT INTO tipo_trabajo (`n_nombre`) VALUES ('Trabajo de grado de maestría o especialidad médica');
+INSERT INTO tipo_trabajo (`n_nombre`) VALUES ('Tesis de doctorado');
+INSERT INTO tipo_trabajo (`n_nombre`) VALUES ('Monografía de conclusión de curso de perfeccionamiento/especialización');
