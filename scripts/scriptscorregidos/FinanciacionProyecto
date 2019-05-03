@@ -1,3 +1,0 @@
-INSERT INTO financiacion_proyecto (`n_nombre`, `n_descripcion`) VALUES ('Interna', 'Financiacion por parte de la institucion que avala al grupo de investigacion');
-INSERT INTO financiacion_proyecto (`n_nombre`, `n_descripcion`) VALUES ('Externa nacional', 'Financiacion de una institucion externa nacional');
-INSERT INTO financiacion_proyecto (`n_nombre`, `n_descripcion`) VALUES ('Externa internacional', 'Financiacion de una institucion externa internacional');
